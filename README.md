@@ -24,6 +24,14 @@ Multi-round deep fine-tuning of RNA language models for mRNA translation efficie
 - Dual-channel architecture: sequence embedding + 26-dim biological features
 - Tissue-specific models for precision medicine applications
 
+### Enzyme Mutation Algorithm — Anti-Hydrolysis Scoring with 3D Structural Constraints
+
+A four-generation evolution (v1→v4) of mutation scoring algorithms for enzyme activity enhancement. Key discovery: **single-chain kcat negatively correlates with tetramer configuration stability (ρ = -0.604)**, leading to a paradigm shift from "catalysis-first" to "anti-hydrolysis-first".
+
+- v4 algorithm: 3D Gaussian distance penalty + inter-subunit charge repulsion + industrial post-processing correction
+- Validated on 102 tetramer samples with 100% configuration PASS rate (conservative threshold)
+- Reduced structure prediction candidates by 72% (130→36)
+
 ### Multi-Dimensional Scoring Pipeline
 
 | Dimension | Metric | What it measures |
@@ -39,6 +47,7 @@ The docking validation dimension can identify "confident but wrong" designs — 
 
 - [PPI Head Innovation](docs/divo-ppi-head-innovation.md) — Technical deep-dive into our PPI affinity prediction model
 - [RNALens Fine-tuning](docs/rnalens-finetuning-innovation.md) — mRNA translation efficiency prediction via progressive fine-tuning
+- [Asparaginase Mutation Algorithm](docs/asparaginase-mutation-algorithm.md) — Anti-hydrolysis mutation scoring algorithm v1→v4 evolution
 
 ## License
 
