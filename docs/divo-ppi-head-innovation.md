@@ -108,9 +108,9 @@ DiVo PPI Head 的策略：
 
 PPI Head 的一个关键设计决策是：**与主流结构预测模型的表征维度对齐。**
 
-我们验证了 PPI Head 的 6 个关键层与参考实现的 shape 完全匹配：
+我们验证了 PPI Head 的 6 个关键层与预训练模型的 shape 完全匹配：
 
-| 层 | PPI Head shape | 参考实现 shape | 匹配 |
+| 层 | PPI Head shape | 预训练模型 shape | 匹配 |
 |----|---------------|---------------|------|
 | 距离分箱嵌入 | [64, 128] | [64, 128] | ✅ |
 | s→z投影层1 | [128, 384] | [128, 384] | ✅ |
@@ -119,7 +119,7 @@ PPI Head 的一个关键设计决策是：**与主流结构预测模型的表征
 | z归一化偏置 | [128] | [128] | ✅ |
 | z线性投影 | [128, 128] | [128, 128] | ✅ |
 
-**6/6 完全匹配。** 这意味着 PPI Head 可以直接从参考实现迁移权重进行初始化，大幅减少训练数据需求。迁移后只需在自有数据上 fine-tune，即可获得针对特定应用场景优化的亲和力预测能力。
+**6/6 完全匹配。** 这意味着 PPI Head 可以直接从预训练模型迁移权重进行初始化，大幅减少训练数据需求。迁移后只需在自有数据上 fine-tune，即可获得针对特定应用场景优化的亲和力预测能力。
 
 ---
 
@@ -178,15 +178,15 @@ PPI 权重设为 0.15（最低），原因是当前 PPI Head 尚处于权重迁�
 
 ### 5.2 架构兼容性
 
-PPI Head 与参考实现的 6/6 关键层 shape 完全匹配，权重迁移路径已验证可行。迁移伪代码：
+PPI Head 与主流预训练模型的 6/6 关键层 shape 完全匹配，权重迁移路径已验证可行。迁移伪代码：
 
 ```python
-# 从参考实现迁移权重初始化PPI Head
-ref_sd = load_reference_checkpoint()
+# 从预训练结构预测模型迁移亲和力模块权重
+ref_sd = load_pretrained_checkpoint()
 ppi_sd = ppi_model.state_dict()
 
 for ppi_key in ppi_sd:
-    ref_key = f"affinity_module1.{ppi_key}"
+    ref_key = map_to_pretrained_key(ppi_key)  # 按架构映射表匹配
     if ref_key in ref_sd and ref_sd[ref_key].shape == ppi_sd[ppi_key].shape:
         ppi_sd[ppi_key] = ref_sd[ref_key]  # 直接迁移
 
@@ -234,7 +234,7 @@ PPI Head 当前处于**架构就绪、权重迁移待完成**阶段。接下来�
 
 ### 6.1 权重迁移 + Fine-tune
 
-1. 从参考实现迁移 6 个关键层的权重
+1. 从预训练模型迁移 6 个关键层的权重
 2. 在 PDBbind v2025（蛋白-蛋白复合物 Kd/Ki/IC50 数据）上 fine-tune
 3. 加入合成负样本（随机配对的非相互作用蛋白）
 4. 逐步引入中国人群特异性特征
