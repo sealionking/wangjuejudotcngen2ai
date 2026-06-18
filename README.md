@@ -1,10 +1,10 @@
 # DiVo Gen²AI
 
-AI-driven bio-computing models & pipeline — desensitized public release.
+AI-driven bio-computing models, pipelines & agent infrastructure — desensitized public release.
 
 ## About
 
-DiVo Gen²AI develops AI-driven tools for protein design and mRNA engineering, with a focus on binding affinity prediction, multi-dimensional scoring pipelines, and translation efficiency optimization.
+DiVo Gen²AI develops AI-driven tools for protein design, mRNA engineering, and agent infrastructure, with a focus on binding affinity prediction, multi-dimensional scoring pipelines, translation efficiency optimization, and strategic memory systems.
 
 ## Key Innovations
 
@@ -32,6 +32,15 @@ A four-generation evolution (v1→v4) of mutation scoring algorithms for enzyme 
 - Validated on 102 tetramer samples with 100% configuration PASS rate (conservative threshold)
 - Reduced structure prediction candidates by 72% (130→36)
 
+### DiVo-Anamnesis — 5D Strategic Memory Engine for AI Agents
+
+A 5-dimensional memory engine extending open-source Anamnesis with an OpenSearch knowledge federation layer. Enables AI agents to perform hybrid retrieval across local episodic memories and external knowledge bases through unified RRF scoring.
+
+- 5D recall: semantic + temporal + relational + strategic + knowledge
+- Hybrid BM25+neural search via OpenSearch with automatic fallback
+- IDE session bridge: decrypt and index encrypted agent conversation databases
+- Hook architecture for extensible lifecycle customization
+
 ### Multi-Dimensional Scoring Pipeline
 
 | Dimension | Metric | What it measures |
@@ -48,6 +57,7 @@ The docking validation dimension can identify "confident but wrong" designs — 
 - [PPI Head Innovation](docs/divo-ppi-head-innovation.md) — Technical deep-dive into our PPI affinity prediction model
 - [RNALens Fine-tuning](docs/rnalens-finetuning-innovation.md) — mRNA translation efficiency prediction via progressive fine-tuning
 - [Asparaginase Mutation Algorithm](docs/asparaginase-mutation-algorithm.md) — Anti-hydrolysis mutation scoring algorithm v1→v4 evolution
+- [DiVo-Anamnesis 5D Memory](docs/divo-anamnesis-5d-memory.md) — 5D strategic memory engine with knowledge federation
 
 ## License
 
