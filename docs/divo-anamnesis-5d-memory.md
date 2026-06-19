@@ -6,7 +6,7 @@
 
 ## Abstract
 
-We present DiVo-Anamnesis, a 5-dimensional strategic memory engine that extends the open-source Anamnesis 4D recall system with an OpenSearch-based knowledge federation layer. The system enables AI agents to perform hybrid retrieval across local episodic memories and external knowledge bases through a unified scoring function with configurable dimension weights. Key innovations include: (1) Reciprocal Rank Fusion across 5 heterogeneous retrieval channels, (2) hybrid BM25+neural search via OpenSearch with automatic fallback, and (3) an IDE session bridge that decrypts and indexes encrypted agent conversation databases into the knowledge dimension.
+We present DiVo-Anamnesis, a 5-dimensional strategic memory engine. Building on the open-source Anamnesis (which provides 4D recall: semantic, temporal, relational, strategic), we introduce the **5th dimension — knowledge** — via an OpenSearch-based federation layer that unifies local episodic memories with external knowledge bases under a single RRF scoring function. Key innovations include: (1) extending 4D RRF to 5D with a configurable knowledge dimension, (2) hybrid BM25+neural search via OpenSearch with automatic fallback, and (3) an IDE session bridge that decrypts and indexes encrypted agent conversation databases into the knowledge dimension.
 
 ---
 
@@ -14,19 +14,19 @@ We present DiVo-Anamnesis, a 5-dimensional strategic memory engine that extends 
 
 ### 1.1 Dimension Decomposition
 
-The 5D recall scoring function computes a weighted combination across five retrieval dimensions:
+The upstream Anamnesis provides 4D recall (semantic, temporal, relational, strategic). DiVo-Anamnesis introduces the 5th dimension — **knowledge** — extending the scoring function:
 
-$$\mathcal{S}_{5D}(q, m) = \sum_{d \in \mathcal{D}} w_d \cdot s_d(q, m)$$
+$$\mathcal{S}_{5D}(q, m) = \underbrace{\sum_{d \in \mathcal{D}_4} w_d \cdot s_d(q, m)}_{\text{upstream 4D}} + \underbrace{w_k \cdot s_k(q, m)}_{\text{DiVo knowledge}}$$
 
-where $\mathcal{D} = \{\text{semantic}, \text{temporal}, \text{relational}, \text{strategic}, \text{knowledge}\}$ and $\sum w_d = 1$.
+where $\mathcal{D}_4 = \{\text{semantic}, \text{temporal}, \text{relational}, \text{strategic}\}$ and $\sum w_d + w_k = 1$.
 
-| Dimension | Weight (default) | Source | Retrieval Method |
-|-----------|-----------------|--------|-----------------|
-| Semantic | 0.25 | pgvector | Cosine similarity on query embedding |
-| Temporal | 0.15 | PostgreSQL | Recency-weighted timestamp ranking |
-| Relational | 0.15 | Entity graph | Entity overlap + graph traversal |
-| Strategic | 0.25 | Weight field | Authority × confidence × access frequency |
-| Knowledge | 0.20 | OpenSearch | BM25 + neural hybrid search |
+| Dimension | Weight (default) | Source | Origin |
+|-----------|-----------------|--------|--------|
+| Semantic | 0.25 | pgvector | Upstream 4D |
+| Temporal | 0.15 | PostgreSQL | Upstream 4D |
+| Relational | 0.15 | Entity graph | Upstream 4D |
+| Strategic | 0.25 | Weight field | Upstream 4D |
+| **Knowledge** | **0.20** | **OpenSearch** | **DiVo extension** |
 
 ### 1.2 Reciprocal Rank Fusion
 
@@ -204,31 +204,32 @@ POST /api/v1/divo/recall
 ┌─────────────────────────────────────────────────────────────┐
 │                    DiVo-Anamnesis 5D Engine                  │
 │                                                              │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
-│  │Semantic  │  │Temporal  │  │Relational│  │Strategic │   │
-│  │(pgvector)│  │(PG index)│  │(Entity   │  │(Weight   │   │
-│  │          │  │          │  │ Graph)   │  │ Field)   │   │
-│  └────┬─────┘  └────┬─────┘  └────┬─────┘  └────┬─────┘   │
-│       │              │              │              │          │
-│       └──────────────┴──────┬───────┴──────────────┘          │
+│  ┌──────────────────────────────────────────────────────┐   │
+│  │         Upstream Anamnesis 4D (unchanged)            │   │
+│  │  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────┐ │   │
+│  │  │Semantic  │  │Temporal  │  │Relational│  │Strat-│ │   │
+│  │  │(pgvector)│  │(PG index)│  │(Entity   │  │egic  │ │   │
+│  │  │          │  │          │  │ Graph)   │  │(Wt)  │ │   │
+│  │  └────┬─────┘  └────┬─────┘  └────┬─────┘  └──┬───┘ │   │
+│  │       └──────────────┴──────┬───────┴─────────┘      │   │
+│  │                    RRF Fusion (K=60)                   │   │
+│  └──────────────────────────┬────────────────────────────┘   │
 │                             │                                  │
-│                    RRF Fusion (K=60)                           │
-│                             │                                  │
-│  ┌──────────────────────────┼──────────────────────────┐      │
-│  │              Knowledge Dimension                     │      │
-│  │  ┌─────────────────┐  ┌──────────────────────┐     │      │
-│  │  │  OpenSearch      │  │  IDE Session Bridge  │     │      │
-│  │  │  ┌─────┐┌──────┐│  │  ┌─────┐  ┌───────┐  │     │      │
-│  │  │  │BM25 ││Neural││  │  │SQL  │  │Indexer│  │     │      │
-│  │  │  │     ││Vector││  │  │Cipher│  │       │  │     │      │
-│  │  │  └──┬──┘└──┬───┘│  │  └──┬──┘  └───┬───┘  │     │      │
-│  │  │     └──┬────┘    │  │     │         │      │     │      │
-│  │  │   Hybrid Search  │  │  Decrypt + Dedup     │     │      │
-│  │  └────────┬─────────┘  └─────────┬────────────┘     │      │
-│  └───────────┼──────────────────────┼───────────────────┘      │
+│  ┌──────────────────────────┼────────────────────────────┐   │
+│  │     DiVo Extension: 5th Dimension (Knowledge)         │   │
+│  │  ┌─────────────────┐  ┌──────────────────────┐       │   │
+│  │  │  OpenSearch      │  │  IDE Session Bridge  │       │   │
+│  │  │  ┌─────┐┌──────┐│  │  ┌─────┐  ┌───────┐  │       │   │
+│  │  │  │BM25 ││Neural││  │  │SQL  │  │Indexer│  │       │   │
+│  │  │  │     ││Vector││  │  │Cipher│  │       │  │       │   │
+│  │  │  └──┬──┘└──┬───┘│  │  └──┬──┘  └───┬───┘  │       │   │
+│  │  │     └──┬────┘    │  │     │         │      │       │   │
+│  │  │   Hybrid Search  │  │  Decrypt + Dedup     │       │   │
+│  │  └────────┬─────────┘  └─────────┬────────────┘       │   │
+│  └───────────┼──────────────────────┼─────────────────────┘   │
 │              │                      │                          │
 │              └──────────┬───────────┘                          │
-│                    RRF Fusion (5D)                             │
+│               5D RRF Fusion (4D + Knowledge)                  │
 │                         │                                      │
 │                    Ranked Results                              │
 └─────────────────────────────────────────────────────────────┘
