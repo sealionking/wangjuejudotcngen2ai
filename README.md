@@ -6,6 +6,18 @@ AI-driven bio-computing models, pipelines & agent infrastructure — desensitize
 
 DiVo Gen²AI develops AI-driven tools for protein design, mRNA engineering, and agent infrastructure, with a focus on binding affinity prediction, multi-dimensional scoring pipelines, translation efficiency optimization, and strategic memory systems.
 
+## Abstract
+
+DiVo Gen²AI is an AI-driven bio-computing platform that spans the full pipeline from **structure prediction → affinity scoring → sequence optimization → model deployment**. This repository documents our core technical innovations:
+
+- **PPI Head**: A dedicated binding affinity prediction head that extracts Kd signals from structure prediction intermediates — filling the gap where pLDDT/pDockQ only measure confidence, not actual binding strength.
+- **RNALens**: Three-round progressive fine-tuning of RNA language models for mRNA translation efficiency prediction, achieving Spearman = 0.92 on MRL across HEK/Muscle/PC3 cell lines.
+- **Enzyme Mutation Algorithm**: Four-generation evolution (v1→v4) of anti-hydrolysis scoring, discovering that single-chain kcat negatively correlates with tetramer stability (ρ = -0.604), shifting the paradigm from "catalysis-first" to "anti-hydrolysis-first".
+- **DiVo-Anamnesis**: 5D strategic memory engine (semantic + temporal + relational + strategic + knowledge) with OpenSearch knowledge federation for AI agent hybrid retrieval.
+- **Bio-Distillation**: Multi-teacher knowledge distillation pipeline (GLM-5.2 + GLM-5.1 + DeepSeek-V4-Pro → ~60B MoE student) with bioinformatics-specific GRPO tool-calling rewards. End-to-end verified on a **4GB RTX 3050 Ti** — from teacher inference through LoRA fine-tuning to evaluation, the full pipeline runs on consumer hardware.
+
+All innovations are validated with real experimental data and reproducible pipelines.
+
 ## Key Innovations
 
 ### PPI Head — Protein-Protein Interaction Affinity Prediction
@@ -41,6 +53,15 @@ A 5-dimensional memory engine extending open-source Anamnesis with an OpenSearch
 - IDE session bridge: decrypt and index encrypted agent conversation databases
 - Hook architecture for extensible lifecycle customization
 
+### Bio-Distillation — Multi-Teacher Knowledge Distillation for Bioinformatics
+
+A complete distillation pipeline that compresses multi-teacher knowledge (GLM-5.2 + GLM-5.1 + DeepSeek-V4-Pro) into a deployable ~60B MoE student model, with bioinformatics-specific SFT data construction and GRPO tool-calling reward functions. Verified end-to-end on a **4GB RTX 3050 Ti**.
+
+- Black-box + white-box distillation: Forward KL from teacher logits + SFT from teacher outputs
+- GRPO reward: 4-dimensional weighted scoring (tool correctness 0.4 + param accuracy 0.3 + pipeline validity 0.2 + efficiency 0.1)
+- 16-question must-pass evaluation + tool-calling accuracy assessment
+- Based on EasyDistill (ModelScope), supports QLoRA 4bit for consumer GPUs
+
 ### Multi-Dimensional Scoring Pipeline
 
 | Dimension | Metric | What it measures |
@@ -58,6 +79,7 @@ The docking validation dimension can identify "confident but wrong" designs — 
 - [RNALens Fine-tuning](docs/rnalens-finetuning-innovation.md) — mRNA translation efficiency prediction via progressive fine-tuning
 - [Asparaginase Mutation Algorithm](docs/asparaginase-mutation-algorithm.md) — Anti-hydrolysis mutation scoring algorithm v1→v4 evolution
 - [DiVo-Anamnesis 5D Memory](docs/divo-anamnesis-5d-memory.md) — 5D strategic memory engine with knowledge federation
+- [Bio-Distillation Demo](docs/bio-distillation-demo.md) — Multi-teacher knowledge distillation for bioinformatics, verified on 4GB GPU
 
 ## License
 
