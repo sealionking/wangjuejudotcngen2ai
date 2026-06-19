@@ -14,7 +14,7 @@ DiVo Gen²AI is an AI-driven bio-computing platform that spans the full pipeline
 - **RNALens**: Three-round progressive fine-tuning of RNA language models for mRNA translation efficiency prediction, achieving Spearman = 0.92 on MRL across HEK/Muscle/PC3 cell lines.
 - **Enzyme Mutation Algorithm**: Four-generation evolution (v1→v4) of anti-hydrolysis scoring, discovering that single-chain kcat negatively correlates with tetramer stability (ρ = -0.604), shifting the paradigm from "catalysis-first" to "anti-hydrolysis-first".
 - **DiVo-Anamnesis**: 5D strategic memory engine (semantic + temporal + relational + strategic + knowledge) with OpenSearch knowledge federation for AI agent hybrid retrieval.
-- **Bio-Distillation**: Multi-teacher knowledge distillation pipeline (GLM-5.2 + GLM-5.1 + DeepSeek-V4-Pro → ~60B MoE student) with bioinformatics-specific GRPO tool-calling rewards. End-to-end verified on a **4GB RTX 3050 Ti** — from teacher inference through LoRA fine-tuning to evaluation, the full pipeline runs on consumer hardware.
+- **Bio-Distillation**: Multi-teacher knowledge distillation pipeline (GLM-5.2 + GLM-5.1 + DeepSeek-V4-Pro → ~60B MoE student) with bioinformatics-specific GRPO tool-calling rewards. End-to-end verified on consumer-grade GPU — from teacher inference through LoRA fine-tuning to evaluation, the full pipeline runs on accessible hardware.
 
 All innovations are validated with real experimental data and reproducible pipelines.
 
@@ -55,7 +55,7 @@ A 5-dimensional memory engine extending open-source Anamnesis with an OpenSearch
 
 ### Bio-Distillation — Multi-Teacher Knowledge Distillation for Bioinformatics
 
-A complete distillation pipeline that compresses multi-teacher knowledge (GLM-5.2 + GLM-5.1 + DeepSeek-V4-Pro) into a deployable ~60B MoE student model, with bioinformatics-specific SFT data construction and GRPO tool-calling reward functions. Verified end-to-end on a **4GB RTX 3050 Ti**.
+A complete distillation pipeline that compresses multi-teacher knowledge (GLM-5.2 + GLM-5.1 + DeepSeek-V4-Pro) into a deployable ~60B MoE student model, with bioinformatics-specific SFT data construction and GRPO tool-calling reward functions. Verified end-to-end on a consumer-grade GPU.
 
 - Black-box + white-box distillation: Forward KL from teacher logits + SFT from teacher outputs
 - GRPO reward: 4-dimensional weighted scoring (tool correctness 0.4 + param accuracy 0.3 + pipeline validity 0.2 + efficiency 0.1)
@@ -79,7 +79,7 @@ The docking validation dimension can identify "confident but wrong" designs — 
 - [RNALens Fine-tuning](docs/rnalens-finetuning-innovation.md) — mRNA translation efficiency prediction via progressive fine-tuning
 - [Asparaginase Mutation Algorithm](docs/asparaginase-mutation-algorithm.md) — Anti-hydrolysis mutation scoring algorithm v1→v4 evolution
 - [DiVo-Anamnesis 5D Memory](docs/divo-anamnesis-5d-memory.md) — 5D strategic memory engine with knowledge federation
-- [Bio-Distillation Demo](docs/bio-distillation-demo.md) — Multi-teacher knowledge distillation for bioinformatics, verified on 4GB GPU
+- [Bio-Distillation Demo](docs/bio-distillation-demo.md) — Multi-teacher knowledge distillation for bioinformatics, verified on consumer-grade GPU
 
 ## License
 
