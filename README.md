@@ -80,6 +80,7 @@ The docking validation dimension can identify "confident but wrong" designs — 
 - [Asparaginase Mutation Algorithm](docs/asparaginase-mutation-algorithm.md) — Anti-hydrolysis mutation scoring algorithm v1→v4 evolution
 - [DiVo-Anamnesis 5D Memory](docs/divo-anamnesis-5d-memory.md) — 5D strategic memory engine with knowledge federation
 - [Bio-Distillation Demo](docs/bio-distillation-demo.md) — Multi-teacher knowledge distillation for bioinformatics, verified on consumer-grade GPU
+- [Investigate Lens](docs/investigate-lens-README.md) — 动态资产知识库：自动扫描环境/模型/数据集，MCP 实时查询，替代静态文档
 
 ## License
 
