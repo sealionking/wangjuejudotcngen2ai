@@ -1,5 +1,7 @@
 # Investigate Lens — DiVo Gen²AI 动态资产知识库
 
+**日期**: 2026-06-30
+
 > *人是会制造和使用工具的高等灵长类哺乳动物——马克思*
 
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/)

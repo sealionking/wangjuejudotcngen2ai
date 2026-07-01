@@ -1,6 +1,6 @@
 # Enzyme Mutation Scoring Algorithm v4: Multi-Constraint Optimization with 3D Structural Penalties
 
-**DiVo Gen²AI | Technical Report | June 2026**
+**DiVo Gen²AI | Technical Report | 2026-06-19**
 
 ---
 
