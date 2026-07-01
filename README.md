@@ -81,6 +81,7 @@ The docking validation dimension can identify "confident but wrong" designs — 
 - [DiVo-Anamnesis 5D Memory](docs/divo-anamnesis-5d-memory.md) — 5D strategic memory engine with knowledge federation
 - [Bio-Distillation Demo](docs/bio-distillation-demo.md) — Multi-teacher knowledge distillation for bioinformatics, verified on consumer-grade GPU
 - [Investigate Lens](docs/investigate-lens-README.md) — 动态资产知识库：自动扫描环境/模型/数据集，MCP 实时查询，替代静态文档
+- [MHC肽结合预测：三个世代与老方法的价值](docs/blog-neoantigen-pssmhcpan-bota-and-the-evolution-of-mhc-prediction.md) — 从PSSM到Transformer，MHC预测工具的技术演进、对比评估与Cantor案例剖析
 
 ## License
 
