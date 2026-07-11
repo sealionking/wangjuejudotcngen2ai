@@ -15,3 +15,6 @@
 __pycache__/
 *.pyc
 .DS_Store
+
+# Raw research data (not tracked/pushed)
+georgeereview/raw-data/
