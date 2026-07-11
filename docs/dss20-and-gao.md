@@ -62,6 +62,10 @@ GAO 是 DiVo Design System 2.0 的第五层「智（Intelligence）」，与前�
 │         │   ├─ search_wangjueju    全站搜索          │
 │         │   ├─ get_blog_post       读文章全文         │
 │         │   ├─ list_gen2ai_services 服务线列表        │
+│         │   │   (6 B端 + 3 C端 B2B2C)                │
+│         │   ├─ list_gen2ai_models  自研模型列表        │
+│         │   │   (DiVoGenome/DiVoFold5/DiVoCell/       │
+│         │   │    DiVoSignal/RNALens/Investigate Lens) │
 │         │   ├─ list_gen2ai_blog     Gen²AI 博客      │
 │         │   ├─ get_gen2ai_blog_post 读博客全文        │
 │         │   ├─ get_knowledge_graph 完整知识图谱       │
@@ -228,11 +232,13 @@ curl -s https://wangjueju.cn/llms.txt | head -3
 curl -s https://wangjueju.cn/knowledge-graph.json | python3 -c "
 import json, sys; d = json.load(sys.stdin)
 print(f'Brand: {d[\"brand\"][\"tagline\"]}')
-print(f'Services: {len(d[\"gen2ai\"][\"services\"])} lines')
+print(f'Services: {len(d[\"gen2ai\"][\"services\"])} lines (6 B-end + 3 C-end B2B2C)')
+print(f'Models: {len(d[\"gen2ai\"][\"models\"])} self-developed')
 print(f'Blog: {len(d[\"gen2ai\"][\"blog\"])} posts (live sampled)')
 "
 # Brand: Computing 4Ur Success
-# Services: 6 lines
+# Services: 9 lines (6 B-end + 3 C-end B2B2C)
+# Models: 6 self-developed
 # Blog: 10 posts (live sampled)
 
 # 3. MCP Server 初始化
@@ -253,7 +259,7 @@ curl -sI https://wangjueju.cn/ | grep -iE 'x-ai|link.*llms'
 | `/llms.txt` | ✅ | nginx 1h |
 | `/llms-full.txt` | ✅ | nginx 1h |
 | `/knowledge-graph.json` | ✅ | nginx 5min（含实时采样） |
-| `/api/mcp` (8 tools) | ✅ | 无缓存（SSE streaming） |
+| `/api/mcp` (9 tools) | ✅ | 无缓存（SSE streaming） |
 | `/api/ai?action=gen2ai` | ✅ | 无缓存 |
 | `/.well-known/mcp.json` | ✅ | nginx 24h |
 | `robots.txt` | ✅ | nginx 24h（30+ crawler rules） |
@@ -285,6 +291,17 @@ MCP 的 SSE streaming、自定义 HTTP 头、端点级别的缓存策略——ng
 ### 原则 5：Skills 是教 AI "如何用你"，不是描述"你是谁"
 
 Skill 文件的内容应该是操作指南：你的 tool 叫什么、参数是什么、数据来源是什么。品牌信息放在 `knowledge-graph.json` 中，让 Skill 文件引用它。
+
+### 原则 6：告诉 AI 什么最重要（检索优先级层级）
+
+`knowledge-graph.json` 的 `retrievalPriority` 字段和 `llms-full.txt` 的"AI Retrieval Priority Hierarchy"章节明确告诉 AI agent：**不是所有内容都同等重要**。四层权重架构（400/200/200/100）指导 AI 优先深度理解核心业务承载体（c-users 四维一体），而非历史博客。这是 "Understanding is All You Need" 理念的工程化——不只让 AI 知道"有什么"，还让 AI 知道"先理解什么"。
+
+| 权重 | 内容 | 定位 |
+|------|------|------|
+| 400 | /gen2ai/admissions/c-users | 核心业务承载体（四维一体数字孪生） |
+| 200 | /zh-hans 首页 | 品牌入口与哲学原点 |
+| 200 | /gen2ai/ 子app | 详细架构与信息载体 |
+| 100 | /zh-hans/ 子app | 历史和其他内容 |
 
 ---
 

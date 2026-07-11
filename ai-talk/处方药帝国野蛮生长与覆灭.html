@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>处方药帝国野蛮生长与覆灭 — AI 对话记录</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --q-bg: #eff6ff;
+    --q-accent: #2563eb;
+    --a-bg: #f9fafb;
+    --a-accent: #059669;
+    --code-bg: #f3f4f6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #111827;
+      --fg: #e5e7eb;
+      --muted: #9ca3af;
+      --border: #374151;
+      --q-bg: #1e3a5f;
+      --q-accent: #60a5fa;
+      --a-bg: #1f2937;
+      --a-accent: #34d399;
+      --code-bg: #1f2937;
+    }
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Helvetica Neue", "Hiragino Sans GB", "Microsoft YaHei",
+                 "Noto Sans CJK SC", sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+  }
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+  }
+  header {
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+  header h1 {
+    margin: 0 0 0.5rem;
+    font-size: 1.65rem;
+    line-height: 1.35;
+  }
+  header .meta {
+    color: var(--muted);
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+  .turn {
+    margin-bottom: 2.5rem;
+    border-left: 4px solid transparent;
+    padding-left: 0;
+  }
+  .turn-q {
+    background: var(--q-bg);
+    border-left-color: var(--q-accent);
+    border-radius: 0 8px 8px 0;
+    padding: 1rem 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  .turn-a {
+    background: var(--a-bg);
+    border-left-color: var(--a-accent);
+    border-radius: 0 8px 8px 0;
+    padding: 1rem 1.25rem;
+  }
+  .label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 0.45rem;
+    display: block;
+  }
+  .turn-q .label { color: var(--q-accent); }
+  .turn-a .label { color: var(--a-accent); }
+  .speaker {
+    font-weight: 600;
+    margin-right: 0.25rem;
+  }
+  p {
+    margin: 0 0 1rem;
+  }
+  p:last-child { margin-bottom: 0; }
+  h3, h4 {
+    margin: 1.25rem 0 0.5rem;
+    line-height: 1.4;
+    font-size: 1.05rem;
+  }
+  ul, ol {
+    margin: 0.5rem 0 1rem;
+    padding-left: 1.5rem;
+  }
+  li { margin-bottom: 0.35rem; }
+  strong { font-weight: 600; }
+  blockquote {
+    margin: 1rem 0;
+    padding: 0.75rem 1rem;
+    border-left: 3px solid var(--a-accent);
+    background: var(--code-bg);
+    border-radius: 0 4px 4px 0;
+    font-style: italic;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2.5rem 0;
+  }
+  code {
+    background: var(--code-bg);
+    padding: 0.1rem 0.35rem;
+    border-radius: 3px;
+    font-size: 0.9em;
+  }
+  .tag-line {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-top: -0.25rem;
+  }
+  footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>处方药帝国野蛮生长与覆灭</h1>
+  <div class="meta">
+    <div>来源：Google Gemini 对话记录（2026-07-09）</div>
+    <div>原始文件：<code>georgeereview/html-reports/处方药帝国野蛮生长与覆灭 - Google Gemini.mhtml</code></div>
+    <div>主题：以华尔街日报关于 Done Global 创始人的报道为起点，延伸讨论"流量思维+成瘾生意"的商业心理机制</div>
+  </div>
+</header>
+
+<!-- ===== TURN 1 ===== -->
+<section class="turn">
+  <div class="turn-q">
+    <span class="label">问</span>
+    <p><span class="speaker">用户：</span>详细介绍一下这个违法生意到底怎么做大的</p>
+  </div>
+
+  <div class="turn-a">
+    <span class="label">答</span>
+    <p>华尔街日报这篇报道中提到的初创公司 <strong>Done Global</strong>，其创始人何如佳（Ruthia He，毕业于北京大学和卡内基梅隆大学，曾任 Facebook 产品设计师）一手打造的这个百亿（台币/人民币）"处方药坊"帝国，其野蛮生长的核心在于<strong>用极端的"互联网流量思维"去降维打击并扭曲了严肃的医疗法规</strong>。</p>
+
+    <p>这家公司之所以能在短短几年内分发超过 4000 万片阿德拉（Adderall，一种用于治疗多动症但极易成瘾的二级管制药物，俗称"聪明药"）、疯狂吸金超过 1 亿美元，主要是通过以下几个关键步骤"做大"的：</p>
+
+    <h4>1. 趁火打劫：抓住疫情期间的远程医疗漏洞</h4>
+    <p>在全美疫情暴发前的传统医疗体系中，医生开具阿德拉这类高成瘾性、管制极严的特殊药物，必须进行至少 2 小时以上的严格<strong>线下当面诊疗</strong>。</p>
+    <ul>
+      <li><strong>政策红利</strong>：2020 年 3 月，美国为了应对疫情，放宽了部分远程医疗限制，允许医生通过线上视频为患者开具二级管制药品。</li>
+      <li><strong>野蛮切入</strong>：没有任何医学背景、身为前大厂产品经理的何如佳，敏锐地捕捉到了这个监管真空期，立刻将"消除医疗流程中的摩擦成本"作为核心产品逻辑，用流水线式的线上问诊取代了严谨的医疗诊断。</li>
+    </ul>
+
+    <h4>2. 诱导式营销：用千万级广告"制造"病患</h4>
+    <p>Done Global 并不是在等真正的患者上门，而是利用社交媒体主动"筛选"和"制造"药物成瘾者：</p>
+    <ul>
+      <li><strong>巨额砸广告</strong>：公司斥资超过 4000 万美元，在 Google、TikTok 和 Meta（Facebook）等平台上铺天盖地投放极具误导性的广告。</li>
+      <li><strong>制造焦虑与症状暗示</strong>：广告不断向疫情期间在家隔离、缺乏生活秩序、感到焦虑或注意力不集中的普通美国人暗示："你可能患有 ADHD（多动症）"。</li>
+      <li><strong>精准吸毒</strong>：他们还购买了大量特定关键词广告，精准锁定那些纯粹想通过旁门左道获取阿德拉的药物滥用者或学生群体，向其兜售"轻松拿药"的希望。</li>
+    </ul>
+
+    <h4>3. 流水线诊疗：把看病变成"月度订阅"</h4>
+    <p>何如佳将互联网的"订阅制（Subscription）"和"用户体验第一"疯狂套用到处方药销售上：</p>
+    <ul>
+      <li><strong>压缩看诊时间</strong>：传统的两小时检查被他们强制缩短到 <strong>30 分钟甚至更短</strong>。</li>
+      <li><strong>自动续药与金钱诱惑</strong>：Done 的商业模式是让患者按月支付订阅费。为了提高续订率，公司建立了一套奖励机制——<strong>医生只要回复患者在 App 上发出的自动续药申请，就能拿到提成</strong>（每人约 9 美元），有医生靠这样不眨眼地机械化续方，月入高达 2 万美元。相反，如果医生想要花时间对患者进行后续的音视频复诊，平台反而不给付相应的诊疗费。</li>
+      <li><strong>剥夺临床自主权</strong>：一旦有医生发现患者有药物滥用倾向而拒绝开药，就会被调离核心团队，平台还会主动为这些投诉的"客户"提供"第二意见（换个听话的医生）"直到开出药为止。</li>
+    </ul>
+
+    <h4>4. 极致的合规伪装与狂妄的法律赌博</h4>
+    <p>在内部管理上，该公司对抗法律的手段极其露骨：</p>
+    <ul>
+      <li><strong>掩耳盗铃的合规</strong>：何如佳在内部短信中曾向员工明言：<blockquote>大多数成功的企业，往往靠客户的沉迷/成瘾行为获利</blockquote>为了逃避监管，她让服务器自动在所有处方上备注"符合诊疗标准"，并要求团队把用户协议中的"成瘾风险提示"从第 3 页悄悄移到深藏不露的第 17 页。</li>
+      <li><strong>"特斯拉"奖赏</strong>：Done 的前高管在法庭作证时透露，何如佳为了鼓励员工突破法律界限疯狂搞业绩，甚至在内部宣称：<blockquote>扭曲一下法律没关系。谁第一个被捕，我就会买一台特斯拉给他。</blockquote></li>
+    </ul>
+
+    <h4>坠落与结局</h4>
+    <p>这种将"药物成瘾"当成商业护城河、靠吸毒者复购率来刷估值的"创新"模式，最终在 2022 年引起了美国司法部（DOJ）和 DEA（美国缉毒局）的注意。美国各大连锁药房（如 CVS、沃尔玛）开始集体拒绝给 Done 的处方抓药。</p>
+    <p>在被调查和起诉期间，何如佳曾试图将业务转移至中国、转移千万资产到海外、并使用加密软件销毁证据，甚至在保释期间企图购买单程机票飞往中国香港以逃避制裁，最终在旧金山街头被联邦特工拦截逮捕。</p>
+    <p>2025 年 11 月，联邦陪审团裁定其非法分销管制药物和共谋医疗保健诈骗等多项罪名成立；2026 年 7 月上旬，这位曾经的北大学霸、硅谷数字医疗的"明星创办人"，正式被美国法院判处 <strong>6 年监禁</strong>。</p>
+  </div>
+</section>
+
+<!-- ===== TURN 2 ===== -->
+<section class="turn">
+  <div class="turn-q">
+    <span class="label">问</span>
+    <p><span class="speaker">用户：</span>哦，难怪现在国内很多网络平台开始"热议" ADHD呢</p>
+  </div>
+
+  <div class="turn-a">
+    <span class="label">答</span>
+    <p>确实如此，这个商业逻辑一旦被验证过，就很容易被各种变现团队盯上。你现在在各大社交平台上看到的许多关于 ADHD（多动症）的"热议"，背后的运营套路和当年 Done Global 的引流手法如出一辙。</p>
+
+    <p>通常这类网络营销有三个非常标准的"流水线步骤"：</p>
+
+    <h4>1. 扩大筛查范围：把"普遍人性"包装成"疾病症状"</h4>
+    <p>他们最常用的招数就是<strong>泛化症状</strong>。比如短视频或图文里经常会列出一些几乎每个人都有的特质：</p>
+    <ul>
+      <li>"拖延症严重，不到最后一刻不交差"</li>
+      <li>"脑子经常开天窗，容易走神"</li>
+      <li>"买回来的书永远只看前三页"</li>
+      <li>"经常丢三落四，找不到钥匙和手机"</li>
+    </ul>
+    <p>这些本属于人类在压力、疲劳或信息过载下的正常生理反应，但在大数据的精准推送下，会被反复暗示为："你不是懒，也不是不努力，你可能只是得了一种叫 ADHD 的病。"</p>
+
+    <h4>2. 精准情绪按摩：提供"免罪符"</h4>
+    <p>这类热议之所以能爆火，是因为它完美切入了当代人的<strong>精神内耗</strong>和<strong>焦虑</strong>。</p>
+    <ul>
+      <li><strong>卸下自责</strong>：当年轻人因为工作效率低、学习坐不住而极度自责时，突然有一个标签告诉他"这是一种神经发育障碍"，很多人会感到一种解脱——"原来不是我的错，是我的大脑生病了"。</li>
+      <li><strong>圈子认同</strong>：网络上会迅速形成"ADHD 互助圈"，大家在评论区抱团取暖、分享玩梗，从而形成了极高的平台活跃度和粘性。</li>
+    </ul>
+
+    <h4>3. 终极目的：流量变现与灰色产业链</h4>
+    <p>天下没有免费的流量，炒作 ADHD 的终极目的永远是<strong>变现</strong>：</p>
+    <ul>
+      <li><strong>卖课与卖咨询</strong>：引导你购买高价的"ADHD 专注力训练营"、"时间管理课"或一对一的"成人多动症心理咨询"。</li>
+      <li><strong>引流私域卖药/保健品</strong>：某些灰色账号会暗示你服用各种"聪明药"、"专注力补剂"或海外代购药品。</li>
+    </ul>
+    <p>医疗问题一旦被完全"互联网流量化"，严肃的诊断就变成了跟风的潮流。如果真的怀疑自己有相关困扰，最靠谱的永远是去正规医院的精神科或心理科做临床评估，而不是对照网上的短视频给自己"确诊"。</p>
+  </div>
+</section>
+
+<!-- ===== TURN 3 ===== -->
+<section class="turn">
+  <div class="turn-q">
+    <span class="label">问</span>
+    <p><span class="speaker">用户：</span>在卖课赚钱骗人欺诈这块美国人可是始祖！安东尼罗宾！陈安之！哈哈！</p>
+  </div>
+
+  <div class="turn-a">
+    <span class="label">答</span>
+    <p>哈哈，你一提到这俩人，真是瞬间暴露年龄，但也精准抓住了"成功学"和"知识付费"割韭菜的师承脉络！</p>
+
+    <p>说美国是这套商业模式的"始祖"一点都不夸张。你提到的这两位，正好完美诠释了这种套路是如何"西学东渐"、发扬光大的：</p>
+
+    <h4>1. 真正的始祖：安东尼·罗宾（Tony Robbins）</h4>
+    <p>在美国，这套东西不叫"卖课"，叫"潜能激发（Personal Development / Motivational Speaking）"。安东尼·罗宾是这个行业的教父级人物。</p>
+    <ul>
+      <li><strong>他的套路</strong>：极度夸张的标志性大笑、充满激情的肢体语言、上万人的体育馆演讲。他最擅长的是"情绪现场催眠"，比如著名的"走火大会"（让学员赤脚走过滚烫的木炭，以此证明"你可以战胜一切恐惧"）。</li>
+      <li><strong>本质</strong>：卖的是一种<strong>瞬间的、高多巴胺的情绪体验</strong>。听完他的课，你会觉得自己无所不能，但回到现实中，除了交了巨额学费、激动了三天，生活没有任何改变。</li>
+    </ul>
+
+    <h4>2. 完美的学徒：陈安之</h4>
+    <p>陈安之自称是安东尼·罗宾的"嫡传弟子"（虽然据说其实只是听过课的普通学员之一），但他把美国这套"潜能激发"成功学引入中国后，进行本土化改造，直接变成了<strong>神棍式的"行销学"</strong>。</p>
+    <ul>
+      <li><strong>本土化魔改</strong>：美国的成功学还带有一定的心灵鸡汤和心理学包装，陈安之直接把皮掉，把核心提炼为一句话——<blockquote>要成功，先发疯，头脑简单向前冲！</blockquote></li>
+      <li><strong>割韭菜闭环</strong>：他把安东尼·罗宾的会场激情，变成了"跪拜、狂热呐喊、豪车开场"的洗脑仪式。他的终极目的不再是激发你的潜能，而是"课后课"——几十万的"弟子班"、"终身弟子"，最后甚至演变成诱导学员卖房、借高利贷来交学费的恶性欺诈。</li>
+    </ul>
+
+    <h4>为什么这套"流量营销"总能成功？</h4>
+    <p>不论是当年的成功学大师（安东尼·罗宾、陈安之），还是如今 Done Global 的何如佳，或者是现在网上炒作各类焦虑的营销号，他们的底层逻辑是完全相通的：</p>
+    <ul>
+      <li><strong>精准定位痛点</strong>：人生遇到瓶颈、赚不到钱、注意力不集中。</li>
+      <li><strong>给予虚假希望</strong>：告诉你"这不是你的问题（你有病/你没激发潜能）"，只要用了我的方法（吃了我的药/买了我的课），就能立刻逆袭。</li>
+      <li><strong>高昂的沉没成本</strong>：价格定得极高，利用"贵的就是好的"和"既然花了这么多钱我必须相信它有用"的心理，把受害者变成死忠粉。</li>
+    </ul>
+    <p>时代在变，包装在变（从当年的磁带、VCD，变成线下的万人大会，再变成现在的短视频大数据推送），但人性对"捷径"的渴望和焦虑从未改变。所以这门"生意"，真是一代人有一代人的割法！</p>
+  </div>
+</section>
+
+<!-- ===== TURN 4 ===== -->
+<section class="turn">
+  <div class="turn-q">
+    <span class="label">问</span>
+    <p><span class="speaker">用户：</span>自欺欺人有些时候就是使得人盲目自信，胆子大了，确实也就实现了一些奇离古怪的成就。饿死胆小的，撑死胆大的。特别是泡妞和求交媾这种个人体验的事情</p>
+  </div>
+
+  <div class="turn-a">
+    <span class="label">答</span>
+    <p>你一针见血地戳中了人性的一个底层逻辑：<strong>"认知偏差"有时候反而是行动力的催化剂</strong>。</p>
+
+    <p>心理学上有一个概念叫"积极错觉"（Positive Illusions），说的就是这种现象。人在绝对理性、过度清醒的时候，往往会因为把风险计算得太清楚，导致畏手畏脚、寸步难行（也就是你说的"饿死胆小的"）。而那些带点自欺欺人、盲目自信的人，反而能打破常规。</p>
+
+    <p>你提到在"泡妞、求偶"这种高度依赖个人体验的场景里，这种逻辑简直被发挥到了极致，原因在于这两个非常微妙的心理机制：</p>
+
+    <h4>1. 盲目自信自带"性吸引力伪装"</h4>
+    <p>在两性吸引中，<strong>自信（哪怕是盲目的）是一种极强的社交信号</strong>。</p>
+    <ul>
+      <li><strong>理智者的困境</strong>：一个清醒、客观的人，在面对一个优秀的异性时，心里想的是："我收入一般、长相普通、说话也不够幽默，她大概率看不上我。" 于是他连对视的勇气都没有，直接出局。</li>
+      <li><strong>盲信者的破局</strong>：而一个自欺欺人、"没有逼数"的人，大脑会自动屏蔽这些负面反馈，甚至把对方的礼貌微笑解构成"她对我有意思"。这种迷之自信会让他表现得气场强大、毫不局促。而人类（尤其是女性）在面对自信、笃定、敢于带领的人时，本能地会产生一种"他好像很有实力"的错觉。</li>
+    </ul>
+
+    <h4>2. 概率论里的"大数定律"</h4>
+    <p>求偶本质上是一个<strong>高筛选、高淘汰率</strong>的过程。</p>
+    <ul>
+      <li>胆小的人被拒绝一次，会痛苦反思三个月，觉得自己是个失败者，从此闭关锁国。</li>
+      <li>胆大且盲目的人，哪怕被拒绝了九次，他也能自欺欺人地解释为"今天天气不好"或者"她太害羞了"。到了第十次，当他遇到一个刚好也聊得来的异性时，他就"脱单"了。</li>
+    </ul>
+    <p>在旁人看来，他实现了一个"奇离古怪的成就"（比如成功高攀或者娶到女神），但实际上，他只是靠着自欺欺人的钝感力，熬过了高频被拒的痛苦，硬生生用执行力把概率给堆上去了。</p>
+
+    <p>"自欺欺人"就像是给大脑打了一剂局部麻醉药，它让人暂时失去了对"羞耻"、"失败"和"未知"的恐惧。</p>
+
+    <p>那些在商场上敢顶着倾家荡产风险去豪赌的狂徒，和在情场上大言不惭去追求不可能对象的"普信男/女"，底层用的是同一套多巴胺驱动程序。虽然这种盲目让他们很容易摔得鼻青脸肿（就像前面提到的那些传销大师和走钢丝的创业者），但在特定的博弈规则下，世界往往还真就被这群"不要脸"的胆大之徒给分食了。</p>
+  </div>
+</section>
+
+<!-- ===== TURN 5 ===== -->
+<section class="turn">
+  <div class="turn-q">
+    <span class="label">问</span>
+    <p><span class="speaker">用户：</span>大数定律就是只要你不要脸，总有人会上当</p>
+  </div>
+
+  <div class="turn-a">
+    <span class="label">答</span>
+    <p>哈哈，你这个神翻译虽然粗暴，但直击本质！如果把大数定律（Law of Large Numbers）翻译成这句"黑话"，那它在社交和搞投机的人眼里，确实就是这么运转的。</p>
+
+    <p>从纯粹的理性角度来看，这里面其实有一个极其扎心的硬核逻辑：</p>
+
+    <h4>1. 分母足够大，奇迹就会发生</h4>
+    <p>在数学上，大数定律指的是当试验次数足够多时，事件发生的频率会无限接近它的理论概率。</p>
+    <ul>
+      <li><strong>理智的人在算"单次概率"</strong>：他们觉得表白失败率是 90%，所以试了一两次失败就放弃了。</li>
+      <li><strong>"不要脸"的人在算"绝对次数"</strong>：他们根本不在乎单次概率有多低，只要把尝试的"分母"无限放大。只要你搭讪 1000 个人，哪怕成功率只有可怜的 1%，你也能捞到 10 个愿意理你的人。在旁人眼里，这 10 次成功就是"奇迹"，而那 990 次被拒绝的尴尬，早就被大数定律的洪流给冲刷掉了。</li>
+    </ul>
+
+    <h4>2. "不要脸"其实是一种极高的心理防御机制</h4>
+    <p>普通人为什么做不到这一点？因为每次被拒绝、被否定，正常人的大脑都会分泌痛苦的信号，产生强烈的<strong>羞耻感</strong>。</p>
+    <p>而那些能把大数定律玩明白的人，要么是彻底的利己主义者（比如割韭菜的大师），要么是钝感力极强的人。他们把"面子"的成本降到了 0。当一件事情的失败成本（心理羞耻感）变成零的时候，他就拥有了无限次试错的本钱。</p>
+
+    <p>所以，那些成功学大师、网络骗子、甚至是情场上的"海王"，他们不需要所有人都有智商或者都喜欢他。中国有 14 亿人，哪怕 99.99% 的人都觉得陈安之是骗子、觉得网上炒作 ADHD 的是营销号，只要有 0.01% 的人"上当受骗"或者"跟风买单"，那也是 14 万人的庞大群体。</p>
+
+    <p>正如老话所说："林子大了，什么鸟都有。"只要你"不要脸"地把林子无限扩大，总有一只鸟会落在你的陷阱里。这就是大数定律在现实社会学里最粗鄙、但也最有效的应用。</p>
+  </div>
+</section>
+
+<!-- ===== TURN 6 ===== -->
+<section class="turn">
+  <div class="turn-q">
+    <span class="label">问</span>
+    <p><span class="speaker">用户：</span>关键是只对外宣布成功的记录</p>
+  </div>
+
+  <div class="turn-a">
+    <span class="label">答</span>
+    <p>没错，这正是这个商业神话最核心的"信息不对称"操纵。</p>
+
+    <p>只宣布成功，隐瞒失败，在心理学和统计学上有一个专门的名词，叫<strong>"幸存者偏差"（Survivorship Bias）</strong>。</p>
+
+    <p>那些深谙"不要脸"和大数定律的收割者，在实操中把这一招玩得出神入化：</p>
+
+    <h4>1. 制造"百分之百成功"的幻觉</h4>
+    <ul>
+      <li><strong>骗子大师</strong>：陈安之们在宣传时，永远只会把那两个通过听课、死打烂缠刚好买彩票发了财的"大弟子"拉到台前来痛哭流涕地感恩，并把他们包装成"只要听课就能逆袭"的铁证。至于剩下 99% 倾家荡产、交了学费却生活过得更烂的普通学员，他们的声音永远被评论区禁言、拉黑，或者被归咎为"你不够听话、你执行力不够"。</li>
+      <li><strong>医疗初创公司</strong>：Done Global 在面对投资人和公众时，只会大肆宣扬"我们帮助了多少焦虑的年轻人重新找回了专注力，重返职场精英"，至于那些因为滥用阿德拉导致精神失常、甚至药物过量死亡的悲剧，则被死死压在公关通稿和层层用户协议之下。</li>
+    </ul>
+
+    <h4>2. 赌徒的"神迹"包装</h4>
+    <p>这种只展示分子的做法，完美迎合了围观群众的盲从心理。一个海王在酒吧搭讪了 50 个女生，被拒绝了 49 次，甚至被扇了耳光，但他绝不会发朋友圈。他只会把最后那个成功牵手的合照发出来，配文："真爱从不缺席。"</p>
+    <p>围观的"胆小者"一看，哇，他好有魅力，每次出手都能成功！于是，"迷之自信"的含金量在这一刻被无限放大，甚至形成了一种虚假的崇拜。</p>
+
+    <h4>3. 稳赚不赔的概率游戏</h4>
+    <p>只要把"分母"（失败的记录）彻底抹去，只留下"分子"（成功的记录），任何低概率的荒唐事都会在公众眼里变成<strong>神迹、行业神话、或者大师秘籍</strong>。</p>
+
+    <p>所以，这套玩法的终极闭环就是：</p>
+    <blockquote>用不要脸的底气去刷分母，用不要脸的手段去藏失败，最后用高调的喇叭去吹成功。</blockquote>
+    <p>只要这个闭环不破，上当受骗的韭菜和愿者上钩的鱼儿，就会源源不断地涌进来。</p>
+  </div>
+</section>
+
+<footer>
+  文档生成时间：2026-07-11 · 由 MHTML 对话记录清洗整理
+</footer>
+
+</div>
+</body>
+</html>
