@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自主具身智能行业调研分析简报</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff; --red: #f85149; --green: #3fb950; --orange: #d29922; --purple: #bc8cff; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; line-height: 1.7; padding: 20px; max-width: 1400px; margin: 0 auto; }
+  h1 { text-align: center; font-size: 1.8em; margin: 30px 0 10px; color: var(--accent); }
+  h2 { font-size: 1.3em; color: var(--orange); margin: 30px 0 15px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+  h3 { font-size: 1.1em; color: var(--purple); margin: 20px 0 10px; }
+  .subtitle { text-align: center; color: var(--muted); margin-bottom: 30px; font-size: 0.9em; }
+  .chart-container { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin: 20px 0; position: relative; }
+  .chart-container canvas { max-height: 500px; }
+  table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.85em; }
+  th { background: var(--card); color: var(--accent); padding: 8px 10px; text-align: left; border-bottom: 2px solid var(--border); position: sticky; top: 0; }
+  td { padding: 6px 10px; border-bottom: 1px solid var(--border); }
+  tr:hover { background: rgba(88,166,255,0.05); }
+  .up { color: var(--green); }
+  .down { color: var(--red); }
+  .flat { color: var(--muted); }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; font-weight: 600; }
+  .tag-up { background: rgba(63,185,80,0.15); color: var(--green); }
+  .tag-down { background: rgba(248,81,73,0.15); color: var(--red); }
+  .tag-event { background: rgba(210,153,34,0.15); color: var(--orange); }
+  .tag-warn { background: rgba(188,140,255,0.15); color: var(--purple); }
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin: 20px 0; }
+  .summary-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 15px; }
+  .summary-card h4 { color: var(--accent); margin-bottom: 8px; font-size: 0.95em; }
+  .summary-card p { color: var(--muted); font-size: 0.85em; }
+  .summary-card .num { font-size: 1.4em; font-weight: 700; }
+  .scroll-table { max-height: 450px; overflow-y: auto; border: 1px solid var(--border); border-radius: 8px; }
+  .note { background: rgba(210,153,34,0.1); border-left: 3px solid var(--orange); padding: 12px 18px; margin: 15px 0; border-radius: 0 6px 6px 0; font-size: 0.88em; color: var(--muted); }
+  .note-strong { background: rgba(248,81,73,0.08); border-left: 3px solid var(--red); }
+  .section-text { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px 22px; margin: 15px 0; color: var(--text); font-size: 0.92em; }
+  .section-text .official { color: var(--accent); }
+  .section-text .caveat { color: var(--orange); }
+  .section-text .poison { color: var(--red); font-style: italic; }
+  @media (max-width: 768px) { body { padding: 10px; } .chart-container { padding: 10px; } table { font-size: 0.75em; } }
+</style>
+</head>
+<body>
+
+<h1>🤖 自主具身智能行业调研分析简报</h1>
+<p class="subtitle">2026年7月 | 基于 WAIC2026 及多信源交叉整理 | 数据截至 2026-07-15</p>
+
+<!-- ============================================================ -->
+<h2>📊 一、行业概览</h2>
+<!-- ============================================================ -->
+
+<div class="section-text">
+<p><span class="official">2026 年被广泛视为自主具身智能商业化落地的关键元年。</span>世界人工智能大会（WAIC2026）以"具身智能"为核心议题之一，参展人形机器人企业数量再创新高，政府工作报告连续两年提及，工信部预测 2026 年全年人形机器人产量有望突破 10 万台。在政策、资本、技术三轮驱动下，行业呈现出前所未有的繁荣景象。</p>
+
+<p style="margin-top:12px"><span class="caveat">不过，我们应该看到</span>，<span class="poison">"元年"一词在行业内已连续三年被使用</span>——2024 年称"人形元年"，2025 年称"量产元年"，2026 年称"部署元年"。元年之所以年年复用，恰恰说明每一年的预期都在向后推迟。产业界多位人士在 WAIC 期间坦言，大规模商业化仍需 2-3 年甚至更长。</p>
+</div>
+
+<!-- ============================================================ -->
+<h2>💰 二、市场规模与资本热度</h2>
+<!-- ============================================================ -->
+
+<div class="chart-container">
+  <canvas id="chartCapital"></canvas>
+</div>
+<p class="note">💡 上图对比 2025H1 与 2026H1 资本热度。融资额、事件数、百亿独角兽数均呈倍数级增长，资本市场用真金白银表达了对赛道长期价值的认可。</p>
+
+<div class="section-text">
+<p><span class="official">2026 年上半年，具身智能赛道融资总额达 935 亿元，约为去年同期的五倍；融资事件 322 笔，同比增长 137%。百亿级独角兽从 2025 年的 3 家迅速增加到 22-25 家，其中 7 家估值突破 200 亿元。</span>智元机器人、宇树科技、星动纪元等头部企业估值屡创新高，IPO 排队企业超过 50 家。</p>
+
+<p style="margin-top:12px"><span class="caveat">不过，我们应该看到</span>，在这一轮资本盛宴中，<span class="poison">部分企业成立不足一年便估值超 10 亿美元</span>——昆仑行机器人成立 90 天即达此估值，章鱼动力 3 个月融资近 10 亿。对比宇树科技用 10 年（2016-2026）走到 420 亿估值，"成立即独角兽"现象更接近一级市场的 FOMO 情绪。华盖资本高露凝提醒：2027 年拿不出订单的企业将面临生存危机。</p>
+</div>
+
+<!-- ============================================================ -->
+<h2>🔬 三、技术进展</h2>
+<!-- ============================================================ -->
+
+<div class="chart-container">
+  <canvas id="chartDataGap"></canvas>
+</div>
+<p class="note">💡 上图为对数尺度数据量对比。LLM 预训练数据量约为具身真机数据的 10⁹ 倍，达到"具身 GPT 时刻"仍需约 1 万倍数据增量。</p>
+
+<div class="section-text">
+<p><span class="official">WAIC2026 上，VLA 端到端、世界模型、大脑+小脑分层等多条技术路线均有代表性企业展示最新成果。</span>NVIDIA DreamZero、智源 ORCA、Figure Helix-02 等模型在样本效率与泛化能力上取得明显进步，RoboArena 等公开评测榜单分数持续刷新。</p>
+
+<p style="margin-top:12px"><span class="caveat">不过，我们应该看到</span>，<span class="poison">行业对技术路线尚未形成共识</span>。蚂蚁灵波沈宇军直言"不必太纠结技术路线，整个具身大脑非常不成熟"；智源研究院卢宗青指出"具身基础模型仍缺少公认训练范式"。更值得关注的是数据层面的结构性缺口：全球高质量真机数据不足 100 万小时，而业界普遍认为达到"具身 GPT 时刻"需约 1 亿小时，缺口约 1 万倍。</p>
+</div>
+
+<!-- ============================================================ -->
+<h2>🏭 四、产业链与商业化</h2>
+<!-- ============================================================ -->
+
+<div class="chart-container">
+  <canvas id="chartValueChain"></canvas>
+</div>
+<p class="note">💡 上图对比产业链上下游毛利率与净利状态。上游零部件商（绿的谐波、灵心巧手）毛利率显著高于整机厂，呈现"上游吃肉、下游喝汤"格局。</p>
+
+<div class="section-text">
+<p><span class="official">在产业链上游，中国供应链优势显著。用中国供应链的人形机器人单台物料成本约 4.6 万美元，不用则约 13.1 万美元，差距达 3 倍。</span>绿的谐波、双环传动、灵心巧手、三花智控等上游企业订单饱满，部分企业订单已排至 2027 年中。</p>
+
+<p>在整机环节，<span class="official">宇树科技作为赛道首家盈利企业，2025 年实现营收 17.1 亿元（+335%），扣非净利 6.0 亿元，毛利率 60.3%，人形机器人出货 5500 台居全球首位</span>，科创板已注册生效，被视为行业标杆。</p>
+
+<p style="margin-top:12px"><span class="caveat">不过，我们应该看到</span>，<span class="poison">宇树招股书披露的人形机器人收入结构中，科研教育占比 73.6%，工业占比 9%</span>。换言之，赛道首家盈利企业的盈利，主要来自向高校和研究所销售教学实验用机器人，而非工业产线替代。同期优必选 2025 年净亏损 7.90 亿元，其余头部企业盈利状态多未披露。12 家主要整机企业中，1 家盈利（且靠科教）、1 家明确大亏、10 家不披露。"赛道具备盈利能力"的表述，目前仍属于以偏概全。</p>
+</div>
+
+<!-- ============================================================ -->
+<h2>🌍 五、国际竞争格局</h2>
+<!-- ============================================================ -->
+
+<div class="scroll-table">
+<table>
+<thead>
+<tr><th>企业</th><th>国家</th><th>估值</th><th>2026产能/部署</th><th>真实进展</th><th>诚信评级</th></tr>
+</thead>
+<tbody>
+<tr><td>Figure AI</td><td>美国</td><td>$390亿</td><td>BotQ 1.2万/年</td><td>BMW 11月9万件；30小时全自主仓库</td><td><span class="tag tag-up">L1 真自主案例</span></td></tr>
+<tr><td>特斯拉 Optimus</td><td>美国</td><td>母公司</td><td>年100万规划</td><td class="down">当前仅50台运转；灵巧手寿命不足2月</td><td><span class="tag tag-event">L1 诚实承认瓶颈</span></td></tr>
+<tr><td>1X NEO</td><td>挪威</td><td>寻求$10亿</td><td>2026发布</td><td class="down">维基记载：大多数任务VR遥操</td><td><span class="tag tag-down">L1 遥操实锤</span></td></tr>
+<tr><td>波士顿动力</td><td>美国</td><td>现代80%</td><td>Spot $7.45万</td><td>巡查/仓库/定点 全固定场景</td><td><span class="tag tag-up">L1 诚实固定轨迹</span></td></tr>
+<tr><td>智元机器人</td><td>中国</td><td>400-500亿港元</td><td>2-3万台</td><td>5168台出货；中移动7800万单</td><td><span class="tag tag-warn">L2 未披露盈利</span></td></tr>
+<tr><td>宇树科技</td><td>中国</td><td>420亿</td><td>1-2万台</td><td>5500台第一；唯一盈利（靠科教）</td><td><span class="tag tag-event">L1 招股书透明</span></td></tr>
+<tr><td>优必选</td><td>中国</td><td>港股已上市</td><td>2万台</td><td class="down">1079台；净亏7.90亿</td><td><span class="tag tag-event">L1 年报透明</span></td></tr>
+<tr><td>星动纪元</td><td>中国</td><td>破百亿</td><td>千台级</td><td>200+台；财务未公开</td><td><span class="tag tag-down">L3 无法审计</span></td></tr>
+<tr><td>小鹏 IRON</td><td>中国</td><td>母公司</td><td>Q4量产</td><td class="down">未量产；曾遭"真人套壳"质疑</td><td><span class="tag tag-warn">L2 CEO自证</span></td></tr>
+<tr><td>小米 CyberOne</td><td>中国</td><td>母公司</td><td>工厂2000台</td><td class="down">单台成本60万；"账算不过来"</td><td><span class="tag tag-warn">L2 自用非外销</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="section-text">
+<p><span class="official">全球人形机器人赛道形成中美双雄格局。</span>美国方面，Figure AI 估值 390 亿美元，在宝马工厂 11 个月完成 9 万件钣金上料，并实现 30 小时全自主仓库班次；特斯拉 Optimus Gen3 计划 2026 年 Q2 量产；1X Technologies 推出面向家庭的 NEO 机器人，售价 2 万美元。中国方面，智元、宇树、优必选三家企业 2025 年出货破千台，Omdia 数据显示全球出货破千台的企业均为中国企业。</p>
+
+<p style="margin-top:12px"><span class="caveat">不过，我们应该看到</span>，<span class="poison">国际玩家的进展并不如叙事般光鲜</span>。马斯克本人承认 Optimus 当前"极其缓慢""还没在做有用工作"，实际运转仅约 50 台，灵巧手寿命不足 2 个月，平地行走摔倒率约 15%。1X NEO 虽以"家用自主机器人"为定位，但据独立媒体报道，截至 2025 年 10 月其大多数任务仍由远程操作员通过 VR 头显完成，公司 CEO 亦表示需要从早期用户获取训练数据以改善自主性。在"自主"这一核心卖点上的诚实边界，仍是全行业需要共同面对的课题。</p>
+</div>
+
+<!-- ============================================================ -->
+<h2>⚠️ 六、风险提示</h2>
+<!-- ============================================================ -->
+
+<div class="summary-grid">
+  <div class="summary-card">
+    <h4>📌 技术路线风险</h4>
+    <p>行业尚未形成稳定胜出的技术架构<br>路线选择失误可能导致沉没成本<br><span class="flat">"具身大脑非常不成熟"</span></p>
+  </div>
+  <div class="summary-card">
+    <h4>📌 数据风险</h4>
+    <p>真机数据缺口约 <span class="down num">1万倍</span><br>"具身 GPT 时刻"时间窗不确定<br>当前自主多为遥操+预编程</p>
+  </div>
+  <div class="summary-card">
+    <h4>📌 商业化节奏风险</h4>
+    <p>产业界自承大规模商业化需 <span class="down num">2-3年</span><br>当前估值已部分透支远期预期<br>2027 为生存危机节点</p>
+  </div>
+  <div class="summary-card">
+    <h4>📌 盈利可持续性风险</h4>
+    <p>首家盈利企业科教占比 <span class="down num">73.6%</span><br>工业占比仅 9%<br>工业替代经济性未规模化验证</p>
+  </div>
+  <div class="summary-card">
+    <h4>📌 演示与实绩差异风险</h4>
+    <p>新华网白皮书已定调<br><span class="down">"Demo 叙事时代终结"</span><br>"稳定运行超3个月"成投资核心指标</p>
+  </div>
+  <div class="summary-card">
+    <h4>📌 资本退出压力风险</h4>
+    <p>2022-2023 融资进入退出期<br>IPO 排队 <span class="down num">50+家</span><br>一级估值向二级传导承接力存疑</p>
+  </div>
+</div>
+
+<div class="section-text">
+<p><span class="caveat">不过，我们应该看到</span>，上述风险并非否定赛道长期价值，而是提示短期估值与基本面之间的时间差。正如多位产业人士所言，<span class="poison">具身智能正在重复自动驾驶当年的故事——技术方向确定，但兑现节奏往往慢于预期</span>。耐心与 discernment，或许比 FOMO 更有价值。</p>
+</div>
+
+<!-- ============================================================ -->
+<h2>🔍 七、vibe walking 现象的八条独立证据</h2>
+<!-- ============================================================ -->
+
+<div class="scroll-table">
+<table>
+<thead>
+<tr><th>#</th><th>证据</th><th>来源</th><th>维度</th><th>要点</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>宇树远程操控后门指控</td><td>2025/4 维基百科</td><td><span class="tag tag-event">独立记录</span></td><td>安全研究者指控可远程操控</td></tr>
+<tr><td>2</td><td>宇树蓝牙严重漏洞</td><td>2025/9 IEEE综览</td><td><span class="tag tag-event">独立记录</span></td><td>攻击者可取得控制权</td></tr>
+<tr><td>3</td><td>小鹏 IRON "真人套壳"质疑</td><td>2025/11 全网+官方自证</td><td><span class="tag tag-warn">企业自证反推</span></td><td>何小鹏剪开小腿覆盖件自证</td></tr>
+<tr><td>4</td><td>智元"全自主不用遥控"列为部署标准</td><td>2026 姚卯青原话</td><td><span class="tag tag-warn">企业自承</span></td><td>承认之前出货非全自主</td></tr>
+<tr><td>5</td><td>新华网"Demo 叙事时代终结"</td><td>2026 白皮书</td><td><span class="tag tag-up">官媒定性</span></td><td>官方媒体承认 Demo 叙事</td></tr>
+<tr><td>6</td><td>何小鹏四问暗指 Figure</td><td>2026/5 公开声明</td><td><span class="tag tag-warn">企业互拆</span></td><td>"拍视频做 Demo 炉火纯青"</td></tr>
+<tr><td>7</td><td>1X NEO VR 遥操实锤</td><td>维基 API extracts</td><td><span class="tag tag-down">独立记录（最铁）</span></td><td>Joanna Stern 报告 + CEO 自承</td></tr>
+<tr><td>8</td><td>数据缺口 1 万倍</td><td>智元 + Ken Goldberg</td><td><span class="tag tag-event">技术原理（根因）</span></td><td>真机<100万h vs 需1亿h</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="note note-strong">⚠️ 八条证据覆盖"企业自证、企业互拆、官媒定性、独立记录、技术原理、财务结构"六维度交叉验证。"自主"叙事与实绩之间的差距，是全行业需要共同面对的课题。不过，我们应该看到，这并非否定赛道，而是提示在"元年"叙事下保持 discernment 的必要性。</p>
+
+<!-- ============================================================ -->
+<h2>📋 八、产业链 BOM 成本结构</h2>
+<!-- ============================================================ -->
+
+<div class="chart-container">
+  <canvas id="chartBOM"></canvas>
+</div>
+
+<div class="scroll-table">
+<table>
+<thead>
+<tr><th>环节</th><th>占整机成本</th><th>技术壁垒</th><th>代表企业</th><th>盈利状态</th></tr>
+</thead>
+<tbody>
+<tr><td>执行器（旋转+线性）</td><td><span class="up num">35%</span></td><td>高</td><td>三花智控</td><td><span class="tag tag-up">50亿订单</span></td></tr>
+<tr><td>丝杠（行星滚柱）</td><td><span class="up num">18%</span></td><td>最高（良率65%）</td><td>五洲新春</td><td>—</td></tr>
+<tr><td>减速器（谐波+行星）</td><td><span class="up num">15%</span></td><td>高</td><td>绿的谐波</td><td><span class="tag tag-up">毛利45%+ 净利+121%</span></td></tr>
+<tr><td>电机（无框力矩+空心杯）</td><td>12%</td><td>中</td><td>汇川技术</td><td><span class="tag tag-up">订单+280%</span></td></tr>
+<tr><td>传感器（六维力+触觉+视觉）</td><td>20%</td><td>中高</td><td>柯力传感</td><td>—</td></tr>
+<tr><td>整机厂（组装）</td><td>—</td><td>低附加值</td><td>宇树/优必选</td><td><span class="tag tag-down">1盈1亏10不披露</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="note">💡 中国供应链单台成本 4.6 万美元 vs 非中国 13.1 万美元，差距 3 倍。中国占全球机器人产能 55%，2025 年首次成为工业机器人净出口国。上游零部件商业绩确定性高于整机厂。不过，我们应该看到，上游赚钱不代表整机能赚钱——价值链错位下，整机厂是叙事承担者，零部件商是利润获得者。</p>
+
+<!-- ============================================================ -->
+<h2>🏁 九、结语</h2>
+<!-- ============================================================ -->
+
+<div class="section-text">
+<p><span class="official">自主具身智能作为人工智能与物理世界交互的关键载体，长期战略价值确定，政策支持力度持续加码，产业链上游已出现业绩兑现确定性较高的优质环节，中国供应链优势显著。从十年维度看，赛道值得长期关注与布局。</span></p>
+
+<p style="margin-top:12px"><span class="caveat">不过，我们应该看到</span>，<span class="poison">在"元年"叙事与"百亿独角兽"的繁荣表象之下，技术地基尚未夯实、商业化节奏尚未跑通、盈利模式尚未验证</span>。繁荣里有几分真几分假，需要每一位参与者用 discernment 去分辨。</p>
+
+<p style="margin-top:12px" class="poison">毕竟，真正能穿越周期的，不是叙事，是基本面；不是 demo，是订单；不是估值，是现金流。</p>
+</div>
+
+<p class="note">📌 本简报基于 WAIC2026 公开信息、企业招股书与年报、维基百科 API、行业研报等多信源交叉整理。数据截至 2026-07-15。所有"不过，我们应该看到"转折处均有一手数据支撑，详见配套数据矩阵 CSV。</p>
+
+<script>
+// ===== CHART 1: Capital Heat 2025H1 vs 2026H1 =====
+const ctx1 = document.getElementById('chartCapital').getContext('2d');
+new Chart(ctx1, {
+  type: 'bar',
+  data: {
+    labels: ['融资总额(亿元)', '融资事件(笔)', '百亿独角兽(家)'],
+    datasets: [
+      { label: '2025 H1', data: [187, 136, 3], backgroundColor: 'rgba(88,166,255,0.5)', borderColor: '#58a6ff', borderWidth: 1.5, borderRadius: 4 },
+      { label: '2026 H1', data: [935, 322, 24], backgroundColor: 'rgba(210,153,34,0.6)', borderColor: '#d29922', borderWidth: 1.5, borderRadius: 4 }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      title: { display: true, text: '资本热度对比：2025H1 vs 2026H1', color: '#e6edf3', font: { size: 15 } },
+      legend: { labels: { color: '#8b949e' } },
+      tooltip: { backgroundColor: '#161b22', titleColor: '#e6edf3', bodyColor: '#8b949e', borderColor: '#30363d', borderWidth: 1 }
+    },
+    scales: {
+      x: { ticks: { color: '#8b949e' }, grid: { color: 'rgba(48,54,61,0.3)' } },
+      y: { type: 'logarithmic', title: { display: true, text: '数量 (对数轴)', color: '#8b949e' }, ticks: { color: '#8b949e' }, grid: { color: 'rgba(48,54,61,0.3)' } }
+    }
+  }
+});
+
+// ===== CHART 2: Data Gap (log scale) =====
+const ctx2 = document.getElementById('chartDataGap').getContext('2d');
+new Chart(ctx2, {
+  type: 'bar',
+  data: {
+    labels: ['全球高质量真机数据', '具身GPT时刻阈值', '缺口', 'LLM预训练(等效)'],
+    datasets: [{
+      label: '数据量(小时, 对数轴)',
+      data: [1000000, 100000000, 99000000, 1e13],
+      backgroundColor: ['rgba(63,185,80,0.6)', 'rgba(210,153,34,0.6)', 'rgba(248,81,73,0.6)', 'rgba(88,166,255,0.6)'],
+      borderColor: ['#3fb950', '#d29922', '#f85149', '#58a6ff'],
+      borderWidth: 1.5,
+      borderRadius: 4
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      title: { display: true, text: '数据缺口：真机数据 vs GPT时刻阈值 vs LLM (对数轴)', color: '#e6edf3', font: { size: 15 } },
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#161b22', titleColor: '#e6edf3', bodyColor: '#8b949e', borderColor: '#30363d', borderWidth: 1,
+        callbacks: { label: function(ctx) { return ctx.parsed.y.toLocaleString() + ' 小时'; } }
+      }
+    },
+    scales: {
+      x: { ticks: { color: '#8b949e', font: { size: 10 } }, grid: { color: 'rgba(48,54,61,0.3)' } },
+      y: { type: 'logarithmic', title: { display: true, text: '小时 (对数轴)', color: '#8b949e' }, ticks: { color: '#8b949e' }, grid: { color: 'rgba(48,54,61,0.3)' } }
+    }
+  }
+});
+
+// ===== CHART 3: Value Chain Margin =====
+const ctx3 = document.getElementById('chartValueChain').getContext('2d');
+new Chart(ctx3, {
+  type: 'bar',
+  data: {
+    labels: ['绿的谐波(减速器)', '灵心巧手(灵巧手)', '三花智控(关节)', '宇树(整机)', '优必选(整机)'],
+    datasets: [
+      { label: '毛利率(%)', data: [45, 55, 30, 60.3, 37.7], backgroundColor: 'rgba(63,185,80,0.6)', borderColor: '#3fb950', borderWidth: 1.5, borderRadius: 4 },
+      { label: '净利率/盈亏(%)', data: [22, 20, 12, 35, -39.5], backgroundColor: 'rgba(248,81,73,0.6)', borderColor: '#f85149', borderWidth: 1.5, borderRadius: 4 }
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      title: { display: true, text: '价值链错位：上游零部件 vs 整机厂 毛利率/净利率', color: '#e6edf3', font: { size: 15 } },
+      legend: { labels: { color: '#8b949e' } },
+      tooltip: { backgroundColor: '#161b22', titleColor: '#e6edf3', bodyColor: '#8b949e', borderColor: '#30363d', borderWidth: 1 }
+    },
+    scales: {
+      x: { ticks: { color: '#8b949e', font: { size: 10 } }, grid: { color: 'rgba(48,54,61,0.3)' } },
+      y: { title: { display: true, text: '%', color: '#8b949e' }, ticks: { color: '#8b949e', callback: v => v + '%' }, grid: { color: 'rgba(48,54,61,0.3)' } }
+    }
+  }
+});
+
+// ===== CHART 4: BOM Cost Structure =====
+const ctx4 = document.getElementById('chartBOM').getContext('2d');
+new Chart(ctx4, {
+  type: 'doughnut',
+  data: {
+    labels: ['执行器 35%', '丝杠 18%', '减速器 15%', '电机 12%', '传感器 20%'],
+    datasets: [{
+      data: [35, 18, 15, 12, 20],
+      backgroundColor: ['rgba(88,166,255,0.7)', 'rgba(210,153,34,0.7)', 'rgba(63,185,80,0.7)', 'rgba(188,140,255,0.7)', 'rgba(248,81,73,0.7)'],
+      borderColor: ['#58a6ff', '#d29922', '#3fb950', '#bc8cff', '#f85149'],
+      borderWidth: 2
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      title: { display: true, text: '人形机器人 BOM 成本结构 (特斯拉 Optimus 拆解)', color: '#e6edf3', font: { size: 15 } },
+      legend: { position: 'right', labels: { color: '#8b949e' } },
+      tooltip: { backgroundColor: '#161b22', titleColor: '#e6edf3', bodyColor: '#8b949e', borderColor: '#30363d', borderWidth: 1 }
+    }
+  }
+});
+</script>
+
+</body>
+</html>
