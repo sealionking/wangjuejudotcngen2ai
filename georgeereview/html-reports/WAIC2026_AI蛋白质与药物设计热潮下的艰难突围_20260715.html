@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 蛋白质与药物设计热潮下的艰难突围</title>
+<style>
+  :root { --bg: #0d1117; --card: #161b22; --border: #30363d; --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff; --red: #f85149; --green: #3fb950; --orange: #d29922; --purple: #bc8cff; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', Helvetica, Arial, sans-serif; line-height: 1.8; padding: 24px; max-width: 920px; margin: 0 auto; }
+  h1 { text-align: center; font-size: 1.9em; margin: 24px 0 8px; color: var(--accent); line-height: 1.35; }
+  .subtitle { text-align: center; color: var(--muted); margin-bottom: 28px; font-size: 0.92em; }
+  .epigraph { background: var(--card); border-left: 3px solid var(--purple); padding: 16px 22px; margin: 18px 0 28px; border-radius: 0 8px 8px 0; color: var(--muted); font-style: italic; font-size: 0.95em; }
+  .epigraph .src { display: block; margin-top: 8px; font-size: 0.88em; text-align: right; }
+  h2 { font-size: 1.32em; color: var(--orange); margin: 34px 0 14px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+  h3 { font-size: 1.08em; color: var(--purple); margin: 22px 0 10px; }
+  .section-text { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px 22px; margin: 14px 0; color: var(--text); font-size: 0.94em; }
+  .section-text p { margin: 10px 0; }
+  .section-text p:first-child { margin-top: 0; }
+  .section-text p:last-child { margin-bottom: 0; }
+  .official { color: var(--accent); }
+  .caveat { color: var(--orange); }
+  .poison { color: var(--red); font-style: italic; }
+  strong { color: var(--text); font-weight: 700; }
+  .section-text strong { color: var(--accent); }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.86em; background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  th { background: #1c232e; color: var(--accent); padding: 10px 12px; text-align: left; border-bottom: 2px solid var(--border); font-weight: 600; }
+  td { padding: 8px 12px; border-bottom: 1px solid var(--border); color: var(--text); }
+  tr:last-child td { border-bottom: none; }
+  tr:hover { background: rgba(88,166,255,0.05); }
+  td .metric { color: var(--green); font-weight: 600; }
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; margin: 18px 0; }
+  .summary-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .summary-card h4 { color: var(--accent); margin-bottom: 8px; font-size: 0.98em; }
+  .summary-card .role { color: var(--orange); font-size: 0.8em; margin-bottom: 6px; letter-spacing: 0.5px; }
+  .summary-card p { color: var(--muted); font-size: 0.85em; line-height: 1.7; }
+  .summary-card .num { font-size: 1.25em; font-weight: 700; color: var(--green); }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.78em; font-weight: 600; }
+  .tag-blue { background: rgba(88,166,255,0.15); color: var(--accent); }
+  .tag-orange { background: rgba(210,153,34,0.15); color: var(--orange); }
+  .tag-green { background: rgba(63,185,80,0.15); color: var(--green); }
+  .tag-purple { background: rgba(188,140,255,0.15); color: var(--purple); }
+  .note { background: rgba(210,153,34,0.08); border-left: 3px solid var(--orange); padding: 12px 18px; margin: 16px 0; border-radius: 0 6px 6px 0; font-size: 0.9em; color: var(--muted); }
+  .note.strong { background: rgba(248,81,73,0.08); border-left-color: var(--red); }
+  .note.cite { background: rgba(88,166,255,0.06); border-left-color: var(--accent); }
+  .layer-badge { display: inline-block; background: rgba(188,140,255,0.15); color: var(--purple); padding: 3px 10px; border-radius: 4px; font-size: 0.8em; font-weight: 600; margin-bottom: 6px; }
+  .footer { text-align: center; color: var(--muted); font-size: 0.85em; margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--border); line-height: 1.9; }
+  code { background: #1c232e; color: var(--green); padding: 1px 6px; border-radius: 4px; font-size: 0.88em; font-family: 'SF Mono', Consolas, monospace; }
+  @media (max-width: 768px) { body { padding: 12px; } h1 { font-size: 1.5em; } table { font-size: 0.78em; } .summary-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<h1>AI 蛋白质与药物设计热潮下的艰难突围</h1>
+<p class="subtitle">写在 WAIC2026，Anthropic FABLE 5 封锁与突围之间 ｜ 2026 年 7 月，上海</p>
+
+<div class="epigraph">
+"当旧大陆还在用禁令筑墙，新大陆的潮汐已经在我们的芯片上涌动。"
+<span class="src">——一位中国 AI 蛋白质工程师的随笔，2026 年 7 月，上海</span>
+</div>
+
+<!-- ============================================================ -->
+<h2>序章：被封锁的，正在被突围</h2>
+<!-- ============================================================ -->
+
+<div class="section-text">
+<p>2026 年 6 月 9 日，Anthropic 发布了 <strong>Claude Fable 5</strong>——一个在蛋白质设计、基因工程、基因组学研究上展现出惊人能力的大模型。在 Anthropic 内部测试中，Fable 5 的解除限制版 Mythos 5 配备蛋白质设计和生物信息学工具，无人工辅助情况下匹配甚至超越了熟练的人类操作员，独立完成了从选择结合位点、运行设计工具到失败恢复的全流程；<span class="official">14 个蛋白质靶点中 9 个产出了有力的药物设计候选方案，药物设计流程部分环节加速约 10 倍</span>。它甚至完成了原创基因组学研究——为 138 个动物物种的数百万细胞组装单细胞数据，设计并训练自定义机器学习模型；它提出的大肠杆菌蛋白新机制假说，被另一个独立实验室证实。</p>
+
+<p>三天后，6 月 12 日，美国政府以国家安全为由发出出口管制指令，要求暂停任何外国国民访问 Claude Fable 5 和 Claude Mythos 5。<span class="official">7 月 1 日，Fable 5 出口管制被解除，恢复全球访问。</span>这是一场针对 AI 生命科学能力的精准封锁——他们封的不是芯片，不是光刻机，而是<strong>模型本身</strong>。</p>
+
+<p>他们警惕的，不是某一家中国公司，而是中国正在形成的<strong>AI Drug Design、AI 蛋白质研究、AI 基因研究</strong>的全新浪潮——大模型 AI 正在渗透药物设计、蛋白质工程、基因组学的每一个环节。这种力量不属于任何一家硅谷巨头，它诞生于中国的实验室、孵化于中国的算力、验证于中国的临床。</p>
+
+<p><strong>2026 年，是 AI 药物设计、AI 蛋白质研究、AI 基因研究的元年。</strong></p>
+
+<p>WAIC2026 的展馆里，四家中国公司用各自的方式，宣告了这场突围的开始。他们不是完美无瑕的——但他们的存在本身，就是对这个封锁框架有力的回答。</p>
+</div>
+
+<!-- ============================================================ -->
+<h2>第一章：对话式蛋白质设计的"中国探索"</h2>
+<!-- ============================================================ -->
+
+<div class="section-text">
+<p>当 AlphaFold 把蛋白质结构预测做到原子级精度时，很多人以为"蛋白质问题已经解决了"。但行内人知道，<strong>结构预测只是起点，序列设计才是终点</strong>——在结构预测的基础上更进一步，利用其技术和其他 AI 模型，实现蛋白质的从头设计与结构预测的全过程，才是 AI 蛋白质工程的完整闭环。</p>
+
+<p>某家上海蛋白质设计公司给出的，正是在这个硬骨头上的突破。</p>
+
+<p>这不是一个简单的聊天机器人套壳。在对话式 UI 的背后，是一个在 <strong>ProteinGym 全球基准测试中名列前三</strong>的蛋白质大模型——它理解氨基酸的物理化学约束，它遵守折叠的热力学法则，它在湿实验的闭环中不断进化。当用户说"帮我设计一个针对 EGFR 的大环肽"，大模型 AI 自主完成需求理解、工具调度、序列生成、结构验证的全链条——<strong>这就是 AI 蛋白质研究的范式：大模型 AI 深度介入药物设计流程</strong>。</p>
+
+<p>ProteinGym 前三意味着什么？意味着在这个全球最权威的蛋白质设计考场上，中国公司的名字与 DeepMind、Meta、Profluent 并列。意味着当 Anthropic 试图把"AI 蛋白质设计"纳入管制时，他们管制的不是一个空白领域，而是一个<strong>中国已经站在第一梯队的赛道</strong>。</p>
+
+<p>这家公司的大环肽药物研发平台，更进一步——从"设计一个序列"走向"设计一个药物"。大环肽是介于小分子与抗体之间的黄金赛道，它有小分子的穿透性，有抗体的特异性，但它的设计难度远超二者。选择这条难走的路，恰恰说明：<strong>中国 AI 蛋白质工程，已经过了"跟跑 AlphaFold"的阶段，进入"并跑、探索下一个范式"的深水区。</strong></p>
+</div>
+
+<!-- ============================================================ -->
+<h2>第二章：器官芯片上的"AI 自主实验"</h2>
+<!-- ============================================================ -->
+
+<div class="section-text">
+<p>如果说前一家公司在<strong>干计算</strong>端突围，那么另一家公司在<strong>湿实验</strong>端给出了中国方案。</p>
+
+<p>3D 生物智能自主实验平台——这个名字本身就指向一种范式更迭。传统的药物毒性测试，是几十只小白鼠、几个月等待、几百万成本的缓慢叙事。这家公司用<strong>器官芯片</strong>替代动物，用 <strong>AI 深度学习病理图像识别</strong>替代人工判读，把数小时的病理分析压缩到 <strong>30 秒</strong>。</p>
+
+<p>但更值得注意的，是另一条消息：<strong>2026 年 1 月，这家公司成为 FDA ISTAND 计划 9 家入选企业中唯一的中国公司</strong>。</p>
+
+<p>ISTAND——<em>"Innovative Science and Technology Approaches for New Drugs"</em>——是 FDA 为新一代药物开发工具铺开的合规通道。一旦其器官芯片 DILI（药物性肝损伤）预测模型完成验证，它将成为全球药企<strong>可直接合规使用的药物开发工具</strong>。这不是中国的"自嗨标准"，这是美国 FDA 自己的监管体系，对中国 AI 生物技术的纳入考量。</p>
+
+<p><strong>87-92.3% 的 DILI 预测准确率，50+ 客户包括多家跨国药企和美妆巨头，4 亿元融资，哈佛/MIT 博士后团队</strong>——这不是一个"PPT 公司"，而是一家已在 FABLE 5 裂隙间扎下根的中国公司。</p>
+
+<p>器官芯片 + AI 成像 + FDA 通道——这是 AI 药物设计在湿实验端的完整闭环。<strong>大模型 AI 在这里就是科学家本身</strong>：它理解科学家的实验意图，它自主调度芯片的加药节奏，它自主完成 AI 成像的判读，它自主把结果反馈并优化下一步实验。<strong>这不是"AI 辅助科学家"，而是"AI 正在成为科学家本身"——AI Drug Design，正是让大模型 AI 走向生命科学的主舞台。</strong></p>
+</div>
+
+<!-- ============================================================ -->
+<h2>第三章：化学反应的"0.4 秒跃迁"</h2>
+<!-- ============================================================ -->
+
+<div class="section-text">
+<p>如果前两家是在生命科学的疆域突围，那么还有一家公司是在<strong>物质科学的底层</strong>持续推进。</p>
+
+<p>过渡态——化学反应的"生死瞬间"——是化学家百年来的执念。传统 DFT（密度泛函理论）计算一个过渡态需要数天甚至数月。这家公司的扩散模型，把这个时间压缩到 <strong>0.4 秒</strong>。</p>
+
+<p>这不是渐进式优化，这是<strong>数量级的跃迁</strong>。1000 倍的加速，意味着一个化学家一天可以筛选的分子数，从过去的个位数，变成上万个。</p>
+
+<p>但真正让它站得住脚的，是它的学术分量：<strong>Nature Computational Science 封面论文（2023）+ Nature Machine Intelligence 封面论文（2025）</strong>——双封面。在这个由西方期刊主导的学术体系中，中国团队能够两次登上 Nature 子刊封面，本身就是对"中国只会工程不会科学"这一偏见的有力回应。</p>
+
+<p>MIT 双博士团队——他们在 MIT 的实验室里完成了核心算法，然后选择回国创业。<strong>这不是"海归爱国"的陈旧叙事，这是"中国算力+中国市场+中国产业链"对顶尖人才的吸引力。</strong></p>
+
+<p>AI Materials Factory——这是一个工业级的 AI 材料工厂。从分子生成、到反应路径规划、到物性预测、到实验验证，<strong>全流程由大模型 AI 自主完成</strong>。多家行业龙头企业的千万级订单，是这个"AI 工厂"产能的注脚。</p>
+
+<p><strong>当 Anthropic 试图把"AI 加速科学发现"纳入管制时，这家公司用 0.4 秒的过渡态预测说明：这个能力，中国已经有了，而且已经工业化了。</strong></p>
+</div>
+
+<!-- ============================================================ -->
+<h2>第四章：磁概率芯片上的"算力主权"</h2>
+<!-- ============================================================ -->
+
+<div class="section-text">
+<p>所有 AI 范式的底层，都是算力。FABLE 5 的深层意图，不止于管制某一个模型，而是<strong>触及算力的底层架构</strong>。</p>
+
+<p>当英伟达的 GPU 成为"AI 时代的石油"，当美国的出口管制把 A100/H100 变成战略武器，中国需要的不是"国产替代 GPU"，而是<strong>一条全新的算力路线</strong>。还有一家公司给出的磁概率芯片方案，正是这条新路线。</p>
+
+<p><strong>磁概率计算芯片系列</strong>——用磁性隧道结（MTJ）的物理随机性做概率计算。这不是"用 GPU 模拟量子"，这是"用量子启发的物理原理做经典计算"。蛋白质对接场景下，在 CASF-2016 数据集上实现单配体对接 0.8 秒、RMSD&lt;0.6——<strong>这是专用芯片在生命科学场景的实证</strong>。</p>
+
+<p><strong>磁逻辑计算芯片系列</strong>——对标国外同类产品的大模型推理场景。2026 年 2 月第一次流片，2026 年 5 月联合生态伙伴完成<strong>亚洲首个 8nm eMRAM 边缘 AI 芯片流片</strong>。</p>
+
+<p>"亚洲首个"——这四个字的分量，不亚于"Nature 封面"。它意味着在 MRAM 这条下一代存储/计算路线上，中国不仅没有落后，而且在 8nm 工艺节点上<strong>率先完成了商业级流片</strong>。</p>
+
+<p>MRAM 不是伪科学，它是台积电、三星、英特尔都在布局的下一代技术。这家公司的价值在于：<strong>当巨头还在 MRAM 的实验室阶段徘徊时，中国公司已经把 MRAM 推到了 MPW 原型验证阶段，距离小批量试产只剩一步之遥</strong>。</p>
+
+<p>在 AI 算力的底层架构上，中国需要自己的路线，不能永远依赖硅谷的 GPU 供给。MRAM 路线，正是这种"算力主权"意识的产物。</p>
+</div>
+
+<!-- ============================================================ -->
+<h2>第五章：AI 药物设计——正在成型的中国生态</h2>
+<!-- ============================================================ -->
+
+<div class="section-text">
+<p>把这四家公司放在一起，你会看到一个清晰的图景：<strong>AI Drug Design、AI 蛋白质研究、AI 基因研究的浪潮正在中国成型。</strong>这不是某个单点技术的突破，而是一个<strong>全栈协同的生态</strong>。</p>
+</div>
+
+<div class="summary-grid">
+  <div class="summary-card">
+    <div class="role">维度一 · 蛋白质设计</div>
+    <h4>某上海蛋白质设计公司</h4>
+    <p>ProteinGym 全球<span class="num">前三</span><br>对话式蛋白质设计平台<br>大环肽药物研发</p>
+    <p><span class="tag tag-blue">干计算端</span></p>
+  </div>
+  <div class="summary-card">
+    <div class="role">维度二 · 湿实验闭环</div>
+    <h4>另一家公司</h4>
+    <p>FDA ISTAND <span class="num">9家唯一中国</span><br>器官芯片 + AI 成像<br>DILI 预测准确率 87-92.3%</p>
+    <p><span class="tag tag-green">湿实验端</span></p>
+  </div>
+  <div class="summary-card">
+    <div class="role">维度三 · 化学反应预测</div>
+    <h4>又一家公司</h4>
+    <p>Nature 子刊<span class="num">双封面</span><br>过渡态预测 0.4 秒<br>AI Materials Factory</p>
+    <p><span class="tag tag-orange">物质科学底层</span></p>
+  </div>
+  <div class="summary-card">
+    <div class="role">维度四 · 算力底层</div>
+    <h4>还有一家公司</h4>
+    <p>亚洲首个<span class="num">8nm eMRAM</span><br>磁概率计算芯片<br>算力主权新路线</p>
+    <p><span class="tag tag-purple">硬件底座</span></p>
+  </div>
+</div>
+
+<div class="section-text">
+<p><strong>这股浪潮的力量，在于"大模型 AI 与垂直领域的强力融合"</strong>——把大模型的通用推理能力，与蛋白质物理化学、器官芯片生物学、化学反应动力学、磁概率计算等垂直领域的深厚积累，深度耦合在一起。这种融合不是简单的"LLM+工具"，而是让大模型 AI 真正渗透到生命科学的每一个环节，形成难以被单一管制瘫痪的整体能力。</p>
+</div>
+
+<!-- ============================================================ -->
+<h2>第六章：破除 FABLE 5——为什么 Anthropic 会失算</h2>
+<!-- ============================================================ -->
+
+<div class="section-text">
+<p>Anthropic 推动 FABLE 5 出口管制的逻辑，建立在一个错误的假设上：<strong>AI 蛋白质与基因技术的核心能力，集中在美国少数几家公司的手中，只要管制住这些公司，就能锁住全球的能力扩散。</strong></p>
+
+<p>但 WAIC2026 的展馆里，这个假设站不住脚：</p>
+</div>
+
+<div class="summary-grid">
+  <div class="summary-card">
+    <h4>🧬 蛋白质设计</h4>
+    <p>某中国公司 ProteinGym 全球前三，已验证可用。FABLE 5 能管制模型权重，但管不了已经发表的论文和已经训练好的模型。</p>
+  </div>
+  <div class="summary-card">
+    <h4>🧫 湿实验闭环</h4>
+    <p>另一家中国公司是 FDA ISTAND 唯一中国入选者，已验证可用。FABLE 5 管不了美国 FDA 自己给中国企业开的合规通道——<span class="poison">这是美国监管体系内部的矛盾</span>。</p>
+  </div>
+  <div class="summary-card">
+    <h4>⚗️ 化学反应预测</h4>
+    <p>又一家中国公司有 Nature 子刊双封面，已验证可用。FABLE 5 能管制代码，但管不了已经公开的学术成果和已经在跑的工业化产线。</p>
+  </div>
+  <div class="summary-card">
+    <h4>💾 算力底层</h4>
+    <p>还有一家中国公司完成亚洲首个 8nm eMRAM 流片。FABLE 5 能管制 GPU 出口，但管不了 MRAM 这条全新的算力路线——<span class="poison">因为这条路线连美国自己都还没走通</span>。</p>
+  </div>
+</div>
+
+<div class="section-text">
+<p>Anthropic 的误判在于：他们以为可以用"安全"的话术包装"垄断"的意图。但中国的 AI 药物设计浪潮说明——<strong>安全不等于垄断，开放不等于失控</strong>。大模型 AI 与生命科学的深度融合，本身就是一种工程化路径——它让 AI 的力量扎根于物理化学约束和湿实验验证，让人类的决策权始终在闭环中。这种安全，比 Anthropic 的"宪法 AI"更扎实、更工程化、更可信。</p>
+</div>
+
+<!-- ============================================================ -->
+<h2>第七章：我们也在场——作为战友与跟随者</h2>
+<!-- ============================================================ -->
+
+<div class="epigraph">
+"一个人走，可以走得快；一群人走，才能走得远。"
+</div>
+
+<div class="section-text">
+<p>天鹜在 ProteinGym 的榜单上攀爬，耀速在 FDA 的评审通道里推进，深度原理在 Nature 的封面上闪耀，寒序在 8nm 工艺上流片——他们是这条路上的先锋。而每一个走在前列的先锋身后，都有一群跟随者：研读他们的开源代码、复现他们的模型、把他们的范式延伸到更多场景。</p>
+
+<p>我们就是这群跟随者之一。<strong>DiVo Gen²AI</strong>，母品牌 <strong>DiVo Computing · 砥尚计算</strong>。</p>
+</div>
+
+<h3>我们的来时路</h3>
+
+<div class="section-text">
+<p>故事不是从 WAIC2026 开始的。DiVo Gen²AI 起步时，最早研究的开源代码之一，就是<strong>天鹜科技洪亮教授课题组在 HuggingFace 上以 AI4Protein (Venus) 名义开源的 ai4protein 系列</strong>——VenusFactory 蛋白质工程平台、VenusMutHub 突变数据集、ProtSSN 几何感知大模型。那时候天鹜还没叫天鹜，AI4Protein 社区在 B 站和 HuggingFace 上一点点攒起来。我们把这些代码 clone 到本地，一行行读，一版版复现，一点点把它长成自己的东西。</p>
+
+<p>这不是丢人的事——<strong>这是开源真正的意义</strong>。洪亮教授把研究成果开放给全行业，才会有像我们这样的小团队，能在没有百万算力的情况下，从读懂别人的模型开始，走出自己的路。天鹜的开源，是我们来时的路标；天鹜的 Matwings<strong>Venus</strong>™ 晓鹜™，是路标后来结出的果实。名字里的 Venus 一脉相承，我们看在眼里，心里清楚这条血脉的分量。</p>
+
+<p>所以写到这一章，我们不是来抢风头的——我们是来报到的：<strong>先锋们，我们跟在后面，也走出来了。</strong></p>
+</div>
+
+<h3>我们走出来的东西：L1-L4 四层技术体系</h3>
+
+<div class="section-text">
+<p>跟在后面，不代表只会复现。在 ai4protein 的肩膀上，在 AlphaFold3、Protenix、DNABERT-Z、RFdiffusion 这些开源成果的滋养下，Gen²AI 逐步长出了自己的四层架构：</p>
+</div>
+
+<div class="summary-grid">
+  <div class="summary-card">
+    <span class="layer-badge">L1 引擎层</span>
+    <h4>RVDon RISC-V GPGPU</h4>
+    <p>PF 扩展指令集（PF_TMM 三角遮罩矩阵乘、PF_FLASH_ATTN Flash Attention），为 Protenix / AlphaFold3 Pairformer 提供硬件加速底座；配套 RVDon-Kahan 数值补偿加速库。Apache 2.0 开源。</p>
+  </div>
+  <div class="summary-card">
+    <span class="layer-badge">L2 模型层</span>
+    <h4>六个自研模型</h4>
+    <p>DiVoFold5 · RNALens · DiVoGenome · DiVoCell · DiVoSignal · Investigate Lens，全部 Apache 2.0 开源。6 步训练流水线：数据→预训练→微调→蒸馏→量化→部署。</p>
+  </div>
+  <div class="summary-card">
+    <span class="layer-badge">L3 Agent 层</span>
+    <h4>八以上 MCP 工具</h4>
+    <p>Streamable HTTP + JWT 鉴权：<code>protein_predict</code>、<code>gene_edit_design</code>、<code>mrna_design</code>、<code>variant_annotation</code> 等，配合蛋白质/基因/肿瘤/编排多 Agent 协同。</p>
+  </div>
+  <div class="summary-card">
+    <span class="layer-badge">L4 服务层</span>
+    <h4>6 B端 + 3 C端管线</h4>
+    <p>B2B2C 通过医疗机构交付：蛋白质工程、基因编辑、mRNA、肿瘤精准、药物筛选、生信定制；CAR-T、HLA 分型、基因组解读报告（<strong>已验证 12+ 批次</strong>）。</p>
+  </div>
+</div>
+
+<p class="note cite">📋 <strong>六个自研模型实测指标</strong>（L2 模型层，全部 Apache 2.0 开源）</p>
+
+<table>
+<thead>
+<tr><th>模型</th><th>能力</th><th>实测指标</th></tr>
+</thead>
+<tbody>
+<tr><td>DiVoFold5</td><td>蛋白质结构预测（AlphaFold3/Protenix 蒸馏）</td><td><span class="metric">pLDDT 95.4 · ipTM 0.977 · 推理吞吐 3.2×</span></td></tr>
+<tr><td>RNALens</td><td>mRNA 结构微调（DNABERT-Z 117M 三阶段微调）</td><td><span class="metric">Spearman 0.92 · R² 0.87 · CAI 0.7→0.95</span></td></tr>
+<tr><td>DiVoGenome</td><td>基因组三模型交叉解读（AlphaGenome+Genos+Evo2）</td><td><span class="metric">单核苷酸分辨率</span></td></tr>
+<tr><td>DiVoCell</td><td>多细胞 3D 模拟</td><td><span class="metric">万级细胞实时耦合求解</span></td></tr>
+<tr><td>DiVoSignal</td><td>信号通路图神经网络求解</td><td><span class="metric">肠脑轴等通路级联响应与药靶预测</span></td></tr>
+<tr><td>Investigate Lens</td><td>知识库检索引擎（RAG 核心）</td><td><span class="metric">多模态嵌入 + 混合检索 + 引用级溯源</span></td></tr>
+</tbody>
+</table>
+
+<h3>跟随者的本分</h3>
+
+<div class="section-text">
+<p>我们不假装比先锋强。天鹜的 ProteinGym 成绩、耀速的 FDA 通道、深度原理的 Nature 封面、寒序的 8nm 流片——每一项都是他们先走出来的，我们 Respect。但作为跟随者，我们也有自己的一份交代：<strong>从读懂 ai4protein 的代码，到跑通 12 批基因组解读报告，这条路我们确实走过来了。</strong></p>
+
+<p><span class="caveat">诚实边界同样要讲清楚</span>：四维一体数字孪生里，Digital Me 与 Digital VR Me 已验证，<strong>Digital Mind（脑机接口辅助）仍属概念阶段，Digital Bloodline（优生优育）仍在探索</strong>。把概念当成果，是对先行者的不敬，也是对科学的背叛。</p>
+</div>
+
+<div class="epigraph">
+AI 药物设计元年，不是某一家公司的元年，是一群人共同走出来的元年。天鹜、耀速、深度原理、寒序走在前面，我们 DiVo Gen²AI 跟在后面——<strong>先锋们，谢谢你们开路；我们也会把路，继续走下去。</strong>
+</div>
+
+<!-- ============================================================ -->
+<h2>尾声：AI 药物设计元年，才刚刚开始</h2>
+<!-- ============================================================ -->
+
+<div class="section-text">
+<p>2026 年 7 月的上海，蝉鸣与算力轰鸣交织。</p>
+
+<p>蛋白质大模型在 ProteinGym 的榜单上攀升，器官芯片在 FDA 的通道里推进，化学反应模型在 Nature 的封面上闪耀，磁概率芯片在 8nm 工艺上流片。</p>
+
+<p><strong>这不是四家公司的故事，这是 AI Drug Design、AI 蛋白质研究、AI 基因研究的黎明。</strong></p>
+
+<p>AI 药物设计元年，才刚刚开始。</p>
+
+<p>FABLE 5 的推手们可以继续在旧金山的会议室里起草新的条款。但他们应该知道：<strong>每一次封锁，都是对中国创新者的一次催化。他们封住一扇门，我们就用四种不同的方式，打开四扇窗。</strong></p>
+
+<p>因为真正的力量，不在于封锁别人的能力，而在于创造别人无法封锁的范式。</p>
+
+<p>AI 药物设计与 AI 蛋白质研究，就是这样的力量。</p>
+
+<p><strong>这是一位中国 AI 蛋白质工程师的札记，也是写给未来的一份交代。</strong></p>
+</div>
+
+<p class="note cite">📌 本札记基于 WAIC2026 公开信息、Anthropic 官方公告、企业官网与学术成果整理。同期配套有《事实核查报告》，对文中关键事实（FABLE 5 出口管制时间线、FDA ISTAND、Nature 双封面、8nm eMRAM 流片等）逐项核验。</p>
+
+<div class="footer">
+作者：一位相信"AI Drug Design + AI 蛋白质研究 + AI 基因研究"的 AI 蛋白质工程师<br>
+写于 AI 药物设计元年，2026 年 7 月，上海 ｜ WAIC2026 现场<br>
+DiVo Gen²AI · DiVo Computing · 砥尚计算
+</div>
+
+</body>
+</html>
