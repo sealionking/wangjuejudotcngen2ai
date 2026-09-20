@@ -12,6 +12,8 @@ DiVo Gen²AI is an AI-driven bio-computing platform that spans the full pipeline
 
 - **PPI Head**: A dedicated binding affinity prediction head that extracts Kd signals from structure prediction intermediates — filling the gap where pLDDT/pDockQ only measure confidence, not actual binding strength.
 - **RNALens**: Three-round progressive fine-tuning of RNA language models for mRNA translation efficiency prediction, achieving Spearman = 0.92 on MRL across HEK/Muscle/PC3 cell lines.
+- **DiVoPostTCR**: Fine-tuning of ProtT5-XL protein language model for TCR-antigen peptide binding prediction, reaching AUC 0.9814 on validation — the only TCR predictor in our toolkit powered by a protein language model.
+- **DeepTCR VAE Encoding**: Lightweight TCR repertoire analysis using a 7.87MB VAE encoder with KNN classification (AUC 0.999), running entirely on CPU in 10 minutes.
 - **Enzyme Mutation Algorithm**: Four-generation evolution (v1→v4) of anti-hydrolysis scoring, discovering that single-chain kcat negatively correlates with tetramer stability (ρ = -0.604), shifting the paradigm from "catalysis-first" to "anti-hydrolysis-first".
 - **DiVo-Anamnesis**: 5D strategic memory engine (semantic + temporal + relational + strategic + knowledge) with OpenSearch knowledge federation for AI agent hybrid retrieval.
 - **Bio-Distillation**: Multi-teacher knowledge distillation pipeline (GLM-5.2 + GLM-5.1 + DeepSeek-V4-Pro → ~60B MoE student) with bioinformatics-specific GRPO tool-calling rewards. End-to-end verified on consumer-grade GPU — from teacher inference through LoRA fine-tuning to evaluation, the full pipeline runs on accessible hardware.
@@ -77,6 +79,8 @@ The docking validation dimension can identify "confident but wrong" designs — 
 
 - [PPI Head Innovation](docs/divo-ppi-head-innovation.md) — Technical deep-dive into our PPI affinity prediction model
 - [RNALens Fine-tuning](docs/rnalens-finetuning-innovation.md) — mRNA translation efficiency prediction via progressive fine-tuning
+- [DiVoPostTCR Fine-tuning](docs/divoposttcr-prott5xl-finetuning.md) — ProtT5-XL fine-tuning for TCR-antigen binding prediction (AUC 0.9814)
+- [DeepTCR VAE Encoding](docs/deeptcr-vae-knn-analysis.md) — Lightweight TCR repertoire analysis on CPU (AUC 0.999)
 - [Asparaginase Mutation Algorithm](docs/asparaginase-mutation-algorithm.md) — Anti-hydrolysis mutation scoring algorithm v1→v4 evolution
 - [DiVo-Anamnesis 5D Memory](docs/divo-anamnesis-5d-memory.md) — 5D strategic memory engine with knowledge federation
 - [Bio-Distillation Demo](docs/bio-distillation-demo.md) — Multi-teacher knowledge distillation for bioinformatics, verified on consumer-grade GPU
