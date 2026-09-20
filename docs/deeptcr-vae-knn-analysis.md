@@ -90,7 +90,7 @@ VAE latent 空间能有效区分"已知结合型 TCR"和"随机配对的 TCR"。
 
 > "这个 TCR 能不能结合这个特定肽段？"
 
-因为 KNN 只看 TCR 序列，不看肽段。管线真正需要的是 TCR-肽段配对的特异性预测——这个问题由看肽段的模型（NetTCR/ERGO-II/DiVoPostTCR）回答。
+因为 KNN 只看 TCR 序列，不看肽段。这个问题由看肽段的模型回答——那是另一类工具（如 TCR-肽段结合预测器）的工作。
 
 ### 信息泄漏说明
 
@@ -109,7 +109,7 @@ VAE latent 空间能有效区分"已知结合型 TCR"和"随机配对的 TCR"。
 | 任务 | TCR 序列分析（repertoire） | TCR-肽段结合预测 |
 | 学术背景 | Nat Commun 2021 + 2025 基准 | 自研 |
 
-**两条路线是互补的**：轻量 CPU 路线做 repertoire 粗筛（快、便宜、可本地部署），重量 GPU 路线做肽段特异性验证（精确但昂贵）。我们的管线用 DeepTCR 做 repertoire 分析层，同时用三个 CPU 工具（DeepTCR/NetTCR/ERGO-II）做交叉验证。
+**两条路线是互补的**：轻量 CPU 路线做 repertoire 粗筛（快、便宜、可本地部署），重量 GPU 路线做肽段特异性验证（精确但昂贵）。
 
 ---
 
